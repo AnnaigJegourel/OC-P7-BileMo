@@ -18,13 +18,13 @@ Symfony 6.2
 
 ## Installation 🧑🏻‍🔧
 
-1. Clone the repository
-2. Upload & install xamppserver: [https://www.wampserver.com/en/download-wampserver-64bits/](https://www.apachefriends.org)
-3. Launch xamppserver, configure your php version to 8.1.6 or above
-4. Go to localhost/phpmyadmin/
-5. Create a new database & name it "p7-bilemo"
-6. Launch a terminal at the root of the project & run the command "composer intall"
-7. Launch the Symfony server running "symfony server:start"
+    1. Clone the repository
+    2. Upload & install xamppserver: [https://www.wampserver.com/en/download-wampserver-64bits/](https://www.apachefriends.org)
+    3. Launch xamppserver, configure your php version to 8.1.6 or above
+    4. Go to localhost/phpmyadmin/
+    5. Create a new database & name it "p7-bilemo"
+    6. Launch a terminal at the root of the project & run the command "composer intall"
+    7. Launch the Symfony server running "symfony server:start"
 
 You can load the fixtures as initial data, running "php bin/console doctrine:fixtures:load"
 
