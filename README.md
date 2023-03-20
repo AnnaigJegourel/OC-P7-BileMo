@@ -1,0 +1,2 @@
+# OC-P7-BileMo
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0c68c388506848659dcf07c03b9d00c8)](https://app.codacy.com/gh/AnnaigJegourel/OC-P7-BileMo?utm_source=github.com&utm_medium=referral&utm_content=AnnaigJegourel/OC-P7-BileMo&utm_campaign=Badge_Grade)
