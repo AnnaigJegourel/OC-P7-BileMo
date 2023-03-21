@@ -27,9 +27,6 @@ class Phone
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $length = null;
-
-    #[ORM\Column(nullable: true)]
     private ?float $height = null;
 
     #[ORM\Column(nullable: true)]
@@ -37,6 +34,9 @@ class Phone
 
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $width = null;
 
     public function getId(): ?int
     {
@@ -91,18 +91,6 @@ class Phone
         return $this;
     }
 
-    public function getLength(): ?float
-    {
-        return $this->length;
-    }
-
-    public function setLength(?float $length): self
-    {
-        $this->length = $length;
-
-        return $this;
-    }
-
     public function getHeight(): ?float
     {
         return $this->height;
@@ -135,6 +123,18 @@ class Phone
     public function setPrice(?float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getWidth(): ?float
+    {
+        return $this->width;
+    }
+
+    public function setWidth(?float $width): self
+    {
+        $this->width = $width;
 
         return $this;
     }
