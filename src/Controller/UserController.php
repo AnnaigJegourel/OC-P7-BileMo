@@ -2,21 +2,53 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\Customer;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\CustomerRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    #[Route('/api/users', name: 'app_user', methods: ['GET'])]
+    //ALL USERS
+    #[Route('/api/users', name: 'app_users', methods: ['GET'])]
     public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
     {
         $usersList = $userRepository->findAll();
         $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
 
         return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
+    }
+
+    //ONE USER with ID
+    #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
+    public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
+    {
+        $jsonUser = $serializer->serialize($user, 'json', ['groups' => 'getUsers']);
+
+        return new JsonResponse($jsonUser, Response::HTTP_OK, [], true);
+    }
+
+    //ALL CUSTOMERS
+    #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
+    public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
+    {
+        $customersList = $customerRepository->findAll();
+        $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
+
+        return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
+    }
+
+    //ONE CUSTOMER with ID
+    #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
+    public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
+    {
+        $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
+
+        return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
     }
 }
