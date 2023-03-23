@@ -25,15 +25,6 @@ class AppFixtures extends Fixture
         $customer->setName('CustomerName');
         $manager->persist($customer);
 
-        //ADMIN
-        $admin = new User;
-        $admin->setCustomer($customer);
-        $admin->setEmail('admin@customer.com');
-        $admin->setFirstName('Adminfirst');
-        $admin->setLastName('Adminlast');
-        $admin->setPassword($this->userPasswordHasher->hashPassword($admin, "adminpassword"));
-        $admin->setRoles(['ROLE_ADMIN']);
-
         //USERS
         for ($i = 0; $i < 5; $i++) {
             $user = new User;
