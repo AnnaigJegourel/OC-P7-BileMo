@@ -14,17 +14,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
-    //ALL USERS
-    #[Route('/api/users', name: 'app_users', methods: ['GET'])]
-    public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
-    {
-        $usersList = $userRepository->findAll();
-        $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
+    // READ - GET
 
-        return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
-    }
+    // ---- All Users ----
+    // #[Route('/api/users', name: 'app_users', methods: ['GET'])]
+    // public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+    // {
+    //     $usersList = $userRepository->findAll();
+    //     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
 
-    //ONE USER with ID
+    //     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
+    // }
+
+    // ---- One User ----
     #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
     public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
     {
@@ -33,26 +35,26 @@ class UserController extends AbstractController
         return new JsonResponse($jsonUser, Response::HTTP_OK, [], true);
     }
 
-    //ALL CUSTOMERS
-    #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
-    public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
-    {
-        $customersList = $customerRepository->findAll();
-        $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
+    // ---- All Customers ----
+    // #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
+    // public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
+    // {
+    //     $customersList = $customerRepository->findAll();
+    //     $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
 
-        return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
-    }
+    //     return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
+    // }
 
-    //ONE CUSTOMER with ID
-    #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
-    public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
-    {
-        $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
+    // ---- One Customer ----
+    // #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
+    // public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
+    // {
+    //     $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
 
-        return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
-    }
+    //     return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
+    // }
 
-    // ALL USERS of 1 CUSTOMER
+    // ---- All Users of One Customer ----
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
     public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer): JsonResponse
     {
@@ -61,4 +63,5 @@ class UserController extends AbstractController
 
         return new JsonResponse($jsonCustomerUsersList, Response::HTTP_OK, [], true);
     }
+
 }
