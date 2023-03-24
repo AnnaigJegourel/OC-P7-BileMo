@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -56,8 +57,9 @@ class Customer
 
     public function addUser(User $user): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
+        // if (!$this->users->contains($user)) {
+        if ($this->users->contains($user) === false) {
+                $this->users->add($user);
             $user->setCustomer($this);
         }
 
@@ -66,8 +68,9 @@ class Customer
 
     public function removeUser(User $user): self
     {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
+        // if ($this->users->removeElement($user)) {
+        if ($this->users->removeElement($user) === true) {
+                // set the owning side to null (unless already changed)
             if ($user->getCustomer() === $this) {
                 $user->setCustomer(null);
             }
