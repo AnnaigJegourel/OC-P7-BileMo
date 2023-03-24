@@ -11,7 +11,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    /**
+    * hash password
+    * @var UserPasswordHasherInterface
+    */
     private UserPasswordHasherInterface $userPasswordHasher;
+
 
     public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
@@ -36,7 +41,7 @@ class AppFixtures extends Fixture
             $user->setFirstName('Firstname'.$i);
             $user->setLastName('Lastname'.$i);
 
-            $manager->persist($user);    
+            $manager->persist($user);
         }
 
         //PHONES
@@ -53,7 +58,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($phone);
         }
-        
+
         $manager->flush();
     }
 }
