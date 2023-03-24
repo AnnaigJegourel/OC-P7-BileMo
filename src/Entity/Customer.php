@@ -43,6 +43,7 @@ class Customer
     public function getName(): ?string
     {
         return $this->name;
+
     }
 
 
@@ -51,6 +52,7 @@ class Customer
         $this->name = $name;
 
         return $this;
+
     }
 
 
@@ -60,6 +62,7 @@ class Customer
     public function getUsers(): Collection
     {
         return $this->users;
+
     }
 
 
@@ -72,6 +75,7 @@ class Customer
         }
 
         return $this;
+
     }
 
 
@@ -86,6 +90,7 @@ class Customer
         }
 
         return $this;
+
     }
 
 

@@ -50,6 +50,7 @@ class PhoneRepository extends ServiceEntityRepository
     /*
      * @return Phone[] Returns an array of Phone objects
      */
+
     /*
      *   public function findByExampleField($value): array
      *   {

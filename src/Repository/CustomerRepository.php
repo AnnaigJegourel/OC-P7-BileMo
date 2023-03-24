@@ -32,7 +32,7 @@ class CustomerRepository extends ServiceEntityRepository
         if ($flush === true) {
             $this->getEntityManager()->flush();
         }
-        
+
     }
 
 

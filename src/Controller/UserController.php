@@ -15,8 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
     // READ - GET.
-
-
     /*
      * ---- All Users ----
      *
@@ -49,12 +47,12 @@ class UserController extends AbstractController
      * {
      *     $customersList = $customerRepository->findAll();
      *     $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
-     * 
+     *
      *     return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
      * }
      */
-    
-    
+
+
     /*
      * ---- One Customer ----
      * #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
