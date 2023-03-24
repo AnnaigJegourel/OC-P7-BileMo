@@ -50,6 +50,7 @@ class Phone
     public function getBrand(): ?string
     {
         return $this->brand;
+
     }
 
     public function setBrand(?string $brand): self

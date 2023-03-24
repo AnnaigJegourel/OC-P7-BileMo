@@ -31,6 +31,7 @@ class PhoneController extends AbstractController
         $jsonPhone = $serializer->serialize($phone, 'json');
 
         return new JsonResponse($jsonPhone, Response::HTTP_OK, [], true);
+
     }
 
 }
