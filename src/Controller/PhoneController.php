@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PhoneController extends AbstractController
 {
+
+
     #[Route('/api/phones', name: 'app_phones', methods: ['GET'])]
     public function getAllPhones(PhoneRepository $phoneRepository, SerializerInterface $serializer): JsonResponse
     {
@@ -21,6 +23,7 @@ class PhoneController extends AbstractController
         return new JsonResponse($jsonPhoneList, Response::HTTP_OK, [], true);
 
     }
+
 
     #[Route('/api/phones/{id}', name: 'app_phone_details', methods: ['GET'])]
     public function getPhone(Phone $phone, SerializerInterface $serializer): JsonResponse

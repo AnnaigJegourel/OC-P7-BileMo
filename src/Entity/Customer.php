@@ -25,11 +25,13 @@ class Customer
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
 
     }
+
 
     public function getId(): ?int
     {

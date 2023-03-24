@@ -26,6 +26,7 @@ class UserController extends AbstractController
     //     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
     // }
 
+
     // ---- One User ----
     #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
     public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
@@ -35,6 +36,7 @@ class UserController extends AbstractController
         return new JsonResponse($jsonUser, Response::HTTP_OK, [], true);
 
     }
+
 
     // ---- All Customers ----
     // #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
@@ -54,6 +56,7 @@ class UserController extends AbstractController
 
     //     return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
     // }
+
 
     // ---- All Users of One Customer ----
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]

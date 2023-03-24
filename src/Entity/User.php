@@ -44,11 +44,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['getUsers'])]
     private ?Customer $customer = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
 
     }
+
 
     public function getEmail(): ?string
     {

@@ -16,11 +16,14 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PhoneRepository extends ServiceEntityRepository
 {
+
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Phone::class);
 
     }
+
 
     public function save(Phone $entity, bool $flush= false): void
     {

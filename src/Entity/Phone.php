@@ -38,11 +38,13 @@ class Phone
     #[ORM\Column(nullable: true)]
     private ?float $width = null;
 
+
     public function getId(): ?int
     {
         return $this->id;
 
     }
+
 
     public function getBrand(): ?string
     {
