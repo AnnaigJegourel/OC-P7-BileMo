@@ -21,7 +21,7 @@ class PhoneRepository extends ServiceEntityRepository
         parent::__construct($registry, Phone::class);
     }
 
-    public function save(Phone $entity, bool $flush = false): void
+    public function save(Phone $entity, bool $flush= false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PhoneRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Phone $entity, bool $flush = false): void
+    public function remove(Phone $entity, bool $flush= false): void
     {
         $this->getEntityManager()->remove($entity);
 
