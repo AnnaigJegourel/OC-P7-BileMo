@@ -59,9 +59,9 @@ class UserController extends AbstractController
     public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer): JsonResponse
     {
         $customerUsersList = $customer->getUsers();
-        $jsonCustomerUsersList = $serializer->serialize($customerUsersList, 'json', ['groups' => 'getUsers']);
+        $jsonCustUsersList = $serializer->serialize($customerUsersList, 'json', ['groups' => 'getUsers']);
 
-        return new JsonResponse($jsonCustomerUsersList, Response::HTTP_OK, [], true);
+        return new JsonResponse($jsonCustUsersList, Response::HTTP_OK, [], true);
     }
 
 }
