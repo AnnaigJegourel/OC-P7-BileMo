@@ -32,8 +32,9 @@ class CustomerRepository extends ServiceEntityRepository
         if ($flush === true) {
             $this->getEntityManager()->flush();
         }
-
+        
     }
+
 
     public function remove(Customer $entity, bool $flush= false): void
     {
@@ -42,6 +43,8 @@ class CustomerRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+
     }
+
 
 }

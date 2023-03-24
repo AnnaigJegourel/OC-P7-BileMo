@@ -59,12 +59,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
+
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
+
     }
+
 
     /**
      * A visual identifier that represents this user.
@@ -74,7 +77,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
+
     }
+
 
     /**
      * Méthode retournant le champ utilisé pour l'authentification
@@ -85,7 +90,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername(): string
     {
         return $this->getUserIdentifier();
+
     }
+
 
     /**
      * @see UserInterface
@@ -97,14 +104,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+
     }
+
 
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
 
         return $this;
+
     }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -112,14 +123,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): string
     {
         return $this->password ?: '';
+
     }
+
 
     public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
+
     }
+
 
     /**
      * @see UserInterface
@@ -128,41 +143,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+
     }
+
 
     public function getFirstName(): ?string
     {
         return $this->firstName;
+
     }
+
 
     public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
 
         return $this;
+
     }
+
 
     public function getLastName(): ?string
     {
         return $this->lastName;
+
     }
+
 
     public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
 
         return $this;
+
     }
+
 
     public function getCustomer(): ?Customer
     {
         return $this->customer;
+
     }
+
 
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
 
         return $this;
+
     }
+
+
 }

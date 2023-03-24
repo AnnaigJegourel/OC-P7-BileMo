@@ -35,6 +35,7 @@ class PhoneRepository extends ServiceEntityRepository
 
     }
 
+
     public function remove(Phone $entity, bool $flush= false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -44,6 +45,7 @@ class PhoneRepository extends ServiceEntityRepository
         }
 
     }
+
 
     /*
      * @return Phone[] Returns an array of Phone objects
@@ -60,9 +62,10 @@ class PhoneRepository extends ServiceEntityRepository
      *           ->getResult()
      *       ;
      *   }
-    */
+     */
 
-    /**
+
+    /*
      * public function findOneBySomeField($value): ?Phone
      * {
      *    return $this->createQueryBuilder('p')
@@ -72,5 +75,7 @@ class PhoneRepository extends ServiceEntityRepository
      *        ->getOneOrNullResult()
      *    ;
     * }
-    */
+     */
+
+
 }

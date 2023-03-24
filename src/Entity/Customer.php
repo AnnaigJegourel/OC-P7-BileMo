@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\PseudoTypes\False_;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
@@ -40,10 +39,12 @@ class Customer
 
     }
 
+
     public function getName(): ?string
     {
         return $this->name;
     }
+
 
     public function setName(string $name): self
     {
@@ -52,6 +53,7 @@ class Customer
         return $this;
     }
 
+
     /**
      * @return Collection<int, User>
      */
@@ -59,6 +61,7 @@ class Customer
     {
         return $this->users;
     }
+
 
     public function addUser(User $user): self
     {
@@ -70,6 +73,7 @@ class Customer
 
         return $this;
     }
+
 
     public function removeUser(User $user): self
     {
@@ -83,4 +87,6 @@ class Customer
 
         return $this;
     }
+
+
 }

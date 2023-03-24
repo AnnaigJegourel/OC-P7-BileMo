@@ -53,94 +53,126 @@ class Phone
 
     }
 
+
     public function setBrand(?string $brand): self
     {
         $this->brand = $brand;
 
         return $this;
+
     }
+
 
     public function getName(): ?string
     {
         return $this->name;
+
     }
+
 
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
+
     }
+
 
     public function getColour(): ?string
     {
         return $this->colour;
+
     }
+
 
     public function setColour(?string $colour): self
     {
         $this->colour = $colour;
 
         return $this;
+
     }
+
 
     public function getDescription(): ?string
     {
         return $this->description;
+
     }
+
 
     public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
+
     }
+
 
     public function getHeight(): ?float
     {
         return $this->height;
+
     }
+
 
     public function setHeight(?float $height): self
     {
         $this->height = $height;
 
         return $this;
+
     }
+
 
     public function getWeight(): ?float
     {
         return $this->weight;
+
     }
+
 
     public function setWeight(?float $weight): self
     {
         $this->weight = $weight;
 
         return $this;
+
     }
+
 
     public function getPrice(): ?float
     {
         return $this->price;
+
     }
+
 
     public function setPrice(?float $price): self
     {
         $this->price = $price;
 
         return $this;
+
     }
+
 
     public function getWidth(): ?float
     {
         return $this->width;
+
     }
+
 
     public function setWidth(?float $width): self
     {
         $this->width = $width;
 
         return $this;
+
     }
+
+
 }

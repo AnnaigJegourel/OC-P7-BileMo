@@ -12,7 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
 
-    /**
+    /*
      * hash password
      * @var UserPasswordHasherInterface
      */
@@ -28,12 +28,12 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // CUSTOMER
+        // CUSTOMER.
         $customer = new Customer;
         $customer->setName('CustomerName');
         $manager->persist($customer);
 
-        // USERS
+        // USERS.
         for ($i = 0; $i < 5; $i++) {
             $user = new User;
 
@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
-        // PHONES
+        // PHONES.
         for ($i = 0; $i < 20; $i++) {
             $phone = new Phone;
 
@@ -65,4 +65,6 @@ class AppFixtures extends Fixture
         $manager->flush();
 
     }
+
+
 }
