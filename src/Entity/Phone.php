@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PhoneRepository::class)]
 class Phone
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

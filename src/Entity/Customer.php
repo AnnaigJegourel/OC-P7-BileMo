@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 class Customer
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
