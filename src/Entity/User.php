@@ -21,9 +21,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['getUsers'])]
     private ?string $email = null;
 
-    /**
-     * @param array<string, Role> $roles
-     */
     #[ORM\Column]
     #[Groups(['getUsers'])]
     private array $roles = [];
@@ -97,9 +94,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    /**
- * @param array<int, string, Role> $roles
- */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
