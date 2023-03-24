@@ -31,10 +31,8 @@ class AppFixtures extends Fixture
 
             $user->setRoles(['ROLE_USER']);
             $user->setPassword($this->userPasswordHasher->hashPassword($user, $i.'password'));
-
             $user->setCustomer($customer);
             $user->setEmail('user'.$i.'@customer.com');
-
             $user->setFirstName('Firstname'.$i);
             $user->setLastName('Lastname'.$i);
 
@@ -46,7 +44,6 @@ class AppFixtures extends Fixture
             $phone = new Phone;
 
             $phone->setBrand("Brand" . $i);
-            $phone->setColour("Colour" . $i);
             $phone->setDescription("This is the description of Mobile Phone " . $i);
             $phone->setHeight(mt_rand(11, 15));
             $phone->setWidth(mt_rand(5, 9));
