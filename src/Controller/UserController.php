@@ -59,12 +59,12 @@ class UserController extends AbstractController
      * public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
      * {
      *     $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
-     * 
+     *
      *     return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
      * }
      */
 
-    
+
     // ---- All Users of One Customer ----.
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
     public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer): JsonResponse

@@ -40,7 +40,7 @@ class CustomerRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
+        if ($flush === true) {
             $this->getEntityManager()->flush();
         }
 

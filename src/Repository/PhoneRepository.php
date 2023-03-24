@@ -40,7 +40,7 @@ class PhoneRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
+        if ($flush === true) {
             $this->getEntityManager()->flush();
         }
 
@@ -75,7 +75,7 @@ class PhoneRepository extends ServiceEntityRepository
      *        ->getQuery()
      *        ->getOneOrNullResult()
      *    ;
-    * }
+     * }
      */
 
 
