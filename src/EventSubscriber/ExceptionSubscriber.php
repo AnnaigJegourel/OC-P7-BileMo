@@ -21,16 +21,14 @@ class ExceptionSubscriber implements EventSubscriberInterface
         }
 
         $data = [
-            'status' => $status,
-            'message' => $exception->getMessage()
-        ];
+                 'status' => $status,
+                 'message' => $exception->getMessage()
+                ];
         $event->setResponse(new JsonResponse($data));
     }
 
     public static function getSubscribedEvents(): array
     {
-        return [
-            KernelEvents::EXCEPTION => 'onKernelException',
-        ];
+        return [KernelEvents::EXCEPTION => 'onKernelException',];
     }
 }
