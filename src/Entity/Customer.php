@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 class Customer
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -24,27 +25,36 @@ class Customer
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
+
     }
+
 
     public function getName(): ?string
     {
         return $this->name;
+
     }
+
 
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
+
     }
+
 
     /**
      * @return Collection<int, User>
@@ -52,27 +62,36 @@ class Customer
     public function getUsers(): Collection
     {
         return $this->users;
+
     }
+
 
     public function addUser(User $user): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
+        // if (!$this->users->contains($user)) {
+        if ($this->users->contains($user) === false) {
+                $this->users->add($user);
             $user->setCustomer($this);
         }
 
         return $this;
+
     }
+
 
     public function removeUser(User $user): self
     {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
+        // if ($this->users->removeElement($user)) {
+        if ($this->users->removeElement($user) === true) {
+                // Set the owning side to null (unless already changed)
             if ($user->getCustomer() === $this) {
                 $user->setCustomer(null);
             }
         }
 
         return $this;
+
     }
+
+
 }
