@@ -23,7 +23,7 @@ class UserController extends AbstractController
      * {
      *     $usersList = $userRepository->findAll();
      *     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
-     * 
+     *
      *     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
      * }
      */

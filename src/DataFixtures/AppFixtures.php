@@ -12,9 +12,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     /**
-    * hash password
-    * @var UserPasswordHasherInterface
-    */
+     * hash password
+     * @var UserPasswordHasherInterface
+     */
     private UserPasswordHasherInterface $userPasswordHasher;
 
 

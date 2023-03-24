@@ -43,7 +43,7 @@ class PhoneRepository extends ServiceEntityRepository
         }
     }
 
-    /**
+    /*
     * @return Phone[] Returns an array of Phone objects
     */
     /**
