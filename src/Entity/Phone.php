@@ -41,6 +41,7 @@ class Phone
     public function getId(): ?int
     {
         return $this->id;
+
     }
 
     public function getBrand(): ?string
