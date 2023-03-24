@@ -17,14 +17,16 @@ class UserController extends AbstractController
     // READ - GET
 
     // ---- All Users ----
-    // #[Route('/api/users', name: 'app_users', methods: ['GET'])]
-    // public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
-    // {
-    //     $usersList = $userRepository->findAll();
-    //     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
-
-    //     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
-    // }
+    /**
+     * #[Route('/api/users', name: 'app_users', methods: ['GET'])]
+     * public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+     * {
+     *     $usersList = $userRepository->findAll();
+     *     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
+     * 
+     *     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
+     * }
+     */
 
 
     // ---- One User ----
