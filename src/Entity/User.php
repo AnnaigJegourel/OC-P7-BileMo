@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -20,6 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['getUsers'])]
+    #[Assert\NotBlank(message:"Adresse e-mail requise!")]
+    #[Assert\Length(min: 3, max: 180, minMessage:"L'adresse e-mail doit faire au minimum {{limit}} caractères", maxMessage:"L'adresse e-mail doit faire au maximum {{limit}} caractères")]
     private ?string $email = null;
 
     /** @var array<int,string> */
@@ -35,10 +38,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['getUsers'])]
+    #[Assert\Length(min: 1, max: 255, minMessage:"Le nom doit faire au minimum {{limit}} caractères", maxMessage:"Le nom doit faire au maximum {{limit}} caractères")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['getUsers'])]
+    #[Assert\Length(min: 1, max: 255, minMessage:"Le nom doit faire au minimum {{limit}} caractères", maxMessage:"Le nom doit faire au maximum {{limit}} caractères")]
     private ?string $lastName = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
