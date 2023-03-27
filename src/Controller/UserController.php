@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserController extends AbstractController
 {
@@ -93,13 +94,20 @@ class UserController extends AbstractController
 
     // CREATE a User.
     #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
-    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator): JsonResponse
+    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
-        
         $content = $request->toArray();
+
         $idCustomer = $content['idCustomer'] ?? -1;
         $user->setCustomer($customerRepository->find($idCustomer));
+
+        $plaintextPassword = $content['password'];
+        $hashedPassword = $passwordHasher->hashPassword(
+            $user,
+            $plaintextPassword
+        );
+        $user->setPassword($hashedPassword);
         
         $emi->persist($user);
         $emi->flush();
