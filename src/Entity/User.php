@@ -22,9 +22,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['getUsers'])]
     private ?string $email = null;
 
-    #[ORM\Column(nullable: true)]
+    /** @var array<int,string> */
+    #[ORM\Column(type: 'json', nullable: true)]
     #[Groups(['getUsers'])]
-    private array $roles = [];
+    private array $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -107,7 +108,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
-
+/**
+     * @param array<int,string> $roles
+     *
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
