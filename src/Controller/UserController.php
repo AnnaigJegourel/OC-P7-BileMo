@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
@@ -95,9 +96,19 @@ class UserController extends AbstractController
 
     // CREATE a User.
     #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
-    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        $errors = $validator->validate($user);
+        if ($errors->count() > 0) {
+            return new JsonResponse(
+                $serializer->serialize($errors, 'json'),
+                JsonResponse::HTTP_BAD_REQUEST,
+                [],
+                true
+            );
+        }
+
         $content = $request->toArray();
 
         $idCustomer = $content['idCustomer'] ?? -1;
@@ -123,7 +134,7 @@ class UserController extends AbstractController
 
     // UPDATE a User entirely
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
-    public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
         $updatedUser = $serializer->deserialize(
             $request->getContent(),
@@ -131,6 +142,17 @@ class UserController extends AbstractController
             'json',
             [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
         );
+
+        $errors = $validator->validate($updatedUser);
+        if ($errors->count() > 0) {
+            return new JsonResponse(
+                $serializer->serialize($errors, 'json'),
+                JsonResponse::HTTP_BAD_REQUEST,
+                [],
+                true
+            );
+        }
+
         $content = $request->toArray();
 
         $idCustomer = $content['idCustomer'] ?? -1;
@@ -153,7 +175,7 @@ class UserController extends AbstractController
 
         // UPDATE a User partially
         #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]
-        public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher): JsonResponse
+        public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
         {
             $updatedUser = $serializer->deserialize(
                 $request->getContent(),
@@ -161,6 +183,17 @@ class UserController extends AbstractController
                 'json',
                 [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
             );
+
+            $errors = $validator->validate($updatedUser);
+            if ($errors->count() > 0) {
+                return new JsonResponse(
+                    $serializer->serialize($errors, 'json'),
+                    JsonResponse::HTTP_BAD_REQUEST,
+                    [],
+                    true
+                );
+            }
+
             $content = $request->toArray();
     
             $idCustomer = $content['idCustomer'] ?? -1;
