@@ -7,16 +7,18 @@ use App\Entity\Customer;
 use App\Repository\UserRepository;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserController extends AbstractController
 {
     /*
-     * READ - GET All Users.
+     * READ All Users.
      *
      * #[Route('/api/users', name: 'app_users', methods: ['GET'])]
      * public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
@@ -29,7 +31,7 @@ class UserController extends AbstractController
      */
 
 
-    // READ - GET One User.
+    // READ One User.
     #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
     public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
     {
@@ -41,7 +43,7 @@ class UserController extends AbstractController
 
 
     /*
-     * READ - GET All Customers.
+     * READ All Customers.
      * #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
      * public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
      * {
@@ -54,7 +56,7 @@ class UserController extends AbstractController
 
 
     /*
-     * READ - GET One Customer.
+     * READ One Customer.
      * #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
      * public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
      * {
@@ -65,7 +67,7 @@ class UserController extends AbstractController
      */
 
 
-    // READ - GET All Users of One Customer.
+    // READ All Users of One Customer.
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
     public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer): JsonResponse
     {
@@ -89,4 +91,19 @@ class UserController extends AbstractController
     }
 
 
+    // CREATE a User.
+    #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
+    public function createUser(Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator): JsonResponse
+    {
+        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        $emi->persist($user);
+        $emi->flush();
+
+        $jsonUser = $serializer->serialize($user, 'json', ['groups' => 'getUsers']);
+
+        $location = $urlGenerator->generate('app_user_details', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        return new JsonResponse($jsonUser, Response::HTTP_CREATED, ["Location" => $location], true);
+
+    }
 }
