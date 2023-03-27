@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class UserController extends AbstractController
 {
@@ -113,10 +114,41 @@ class UserController extends AbstractController
         $emi->flush();
 
         $jsonUser = $serializer->serialize($user, 'json', ['groups' => 'getUsers']);
-
         $location = $urlGenerator->generate('app_user_details', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         return new JsonResponse($jsonUser, Response::HTTP_CREATED, ["Location" => $location], true);
 
     }
+
+
+    // UPDATE a User.
+    #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
+    public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $updatedUser = $serializer->deserialize(
+            $request->getContent(),
+            User::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
+        );
+        $content = $request->toArray();
+
+        $idCustomer = $content['idCustomer'] ?? -1;
+        $updatedUser->setCustomer($customerRepository->find($idCustomer));
+
+        $plaintextPassword = $content['password'];
+        $hashedPassword = $passwordHasher->hashPassword(
+            $updatedUser,
+            $plaintextPassword
+        );
+        $updatedUser->setPassword($hashedPassword);
+
+        $emi->persist($updatedUser);
+        $emi->flush();
+        //Response ou JsonResponse pour HTTP code?
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+
+    }
+
+
 }
