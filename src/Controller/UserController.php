@@ -121,7 +121,7 @@ class UserController extends AbstractController
     }
 
 
-    // UPDATE a User.
+    // UPDATE a User entirely
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
     public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher): JsonResponse
     {
@@ -142,6 +142,7 @@ class UserController extends AbstractController
             $plaintextPassword
         );
         $updatedUser->setPassword($hashedPassword);
+        
 
         $emi->persist($updatedUser);
         $emi->flush();
@@ -149,6 +150,38 @@ class UserController extends AbstractController
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
 
     }
+
+        // UPDATE a User partially
+        #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]
+        public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher): JsonResponse
+        {
+            $updatedUser = $serializer->deserialize(
+                $request->getContent(),
+                User::class,
+                'json',
+                [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
+            );
+            $content = $request->toArray();
+    
+            $idCustomer = $content['idCustomer'] ?? -1;
+            $updatedUser->setCustomer($customerRepository->find($idCustomer));
+    
+            if ($content['password']) {
+                $plaintextPassword = $content['password'];
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $updatedUser,
+                    $plaintextPassword
+                );
+                $updatedUser->setPassword($hashedPassword);
+            }
+    
+            $emi->persist($updatedUser);
+            $emi->flush();
+            //Response ou JsonResponse pour HTTP code?
+            return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    
+        }
+    
 
 
 }
