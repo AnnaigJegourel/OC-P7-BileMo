@@ -109,7 +109,7 @@ class UserController extends AbstractController
             $plaintextPassword
         );
         $user->setPassword($hashedPassword);
-        
+
         $emi->persist($user);
         $emi->flush();
 
@@ -177,6 +177,7 @@ class UserController extends AbstractController
     
             $emi->persist($updatedUser);
             $emi->flush();
+
             //Response ou JsonResponse pour HTTP code?
             return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     
