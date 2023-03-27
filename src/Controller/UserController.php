@@ -6,17 +6,21 @@ use App\Entity\User;
 use App\Entity\Customer;
 use App\Repository\UserRepository;
 use App\Repository\CustomerRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class UserController extends AbstractController
 {
-    // READ - GET.
     /*
-     * ---- All Users ----
+     * READ All Users.
      *
      * #[Route('/api/users', name: 'app_users', methods: ['GET'])]
      * public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
@@ -29,7 +33,7 @@ class UserController extends AbstractController
      */
 
 
-    // ---- One User ----.
+    // READ One User.
     #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
     public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
     {
@@ -41,7 +45,7 @@ class UserController extends AbstractController
 
 
     /*
-     * ---- All Customers ----
+     * READ All Customers.
      * #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
      * public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
      * {
@@ -54,7 +58,7 @@ class UserController extends AbstractController
 
 
     /*
-     * ---- One Customer ----
+     * READ One Customer.
      * #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
      * public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
      * {
@@ -65,7 +69,7 @@ class UserController extends AbstractController
      */
 
 
-    // ---- All Users of One Customer ----.
+    // READ All Users of One Customer.
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
     public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer): JsonResponse
     {
@@ -73,6 +77,76 @@ class UserController extends AbstractController
         $jsonCustUsersList = $serializer->serialize($customerUsersList, 'json', ['groups' => 'getUsers']);
 
         return new JsonResponse($jsonCustUsersList, Response::HTTP_OK, [], true);
+
+    }
+
+
+    // DELETE a User.
+    #[Route('/api/users/{id}', name: 'app_user_delete', methods: ['DELETE'])]
+    public function deleteUser(User $user, EntityManagerInterface $emi): JsonResponse
+    {
+        $emi->remove($user);
+        $emi->flush();
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+
+    }
+
+
+    // CREATE a User.
+    #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
+    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $user = $serializer->deserialize($request->getContent(), User::class, 'json');
+        $content = $request->toArray();
+
+        $idCustomer = $content['idCustomer'] ?? -1;
+        $user->setCustomer($customerRepository->find($idCustomer));
+
+        $plaintextPassword = $content['password'];
+        $hashedPassword = $passwordHasher->hashPassword(
+            $user,
+            $plaintextPassword
+        );
+        $user->setPassword($hashedPassword);
+        
+        $emi->persist($user);
+        $emi->flush();
+
+        $jsonUser = $serializer->serialize($user, 'json', ['groups' => 'getUsers']);
+        $location = $urlGenerator->generate('app_user_details', ['id' => $user->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        return new JsonResponse($jsonUser, Response::HTTP_CREATED, ["Location" => $location], true);
+
+    }
+
+
+    // UPDATE a User.
+    #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
+    public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher): JsonResponse
+    {
+        $updatedUser = $serializer->deserialize(
+            $request->getContent(),
+            User::class,
+            'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
+        );
+        $content = $request->toArray();
+
+        $idCustomer = $content['idCustomer'] ?? -1;
+        $updatedUser->setCustomer($customerRepository->find($idCustomer));
+
+        $plaintextPassword = $content['password'];
+        $hashedPassword = $passwordHasher->hashPassword(
+            $updatedUser,
+            $plaintextPassword
+        );
+        $updatedUser->setPassword($hashedPassword);
+
+        $emi->persist($updatedUser);
+        $emi->flush();
+        //Response ou JsonResponse pour HTTP code?
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
 
     }
 
