@@ -85,7 +85,6 @@ class Customer
         if ($this->users->removeElement($user) === true) {
                 // Set the owning side to null (unless already changed).
                 $user->setCustomer(null);
-            }
         }
 
         return $this;
