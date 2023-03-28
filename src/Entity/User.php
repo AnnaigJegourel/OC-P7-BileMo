@@ -113,7 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     }
 
-/**
+    /**
      * @param array<int,string> $roles
      *
      * @return $this
