@@ -200,7 +200,7 @@ class UserController extends AbstractController
         $idCustomer = $content['idCustomer'] ?? -1;
         $updatedUser->setCustomer($customerRepository->find($idCustomer));
 
-        if ($content['password']) {
+        if ($content['password'] !== null) {
             $plaintextPassword = $content['password'];
             $hashedPassword = $passwordHasher->hashPassword(
                 $updatedUser,
