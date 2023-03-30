@@ -22,7 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['getUsers'])]
     #[Assert\NotBlank(message:"Adresse e-mail requise!")]
-    #[Assert\Length(min: 3, max: 180, minMessage:"L'adresse e-mail doit faire au minimum {{limit}} caractères", maxMessage:"L'adresse e-mail doit faire au maximum {{limit}} caractères")]
+    #[Assert\Email(message: "L'email {{ value }} n'est pas valide.")]
     private ?string $email = null;
 
     /** @var array<int,string> */
@@ -31,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = ['ROLE_USER'];
 
     /**
-     * @var string The hashed password
+     * @var string|null The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
