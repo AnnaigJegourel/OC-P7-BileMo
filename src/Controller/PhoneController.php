@@ -20,6 +20,7 @@ class PhoneController extends AbstractController
     {
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 3);
+
         // @phpstan-ignore-next-line
         $phoneList = $phoneRepository->findAllWithPagination($page, $limit);
         $jsonPhoneList = $serializer->serialize($phoneList, 'json');
