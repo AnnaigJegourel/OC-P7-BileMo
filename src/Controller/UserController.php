@@ -103,7 +103,7 @@ class UserController extends AbstractController
         if ($errors->count() > 0) {
             return new JsonResponse(
                 $serializer->serialize($errors, 'json'),
-                JsonResponse::HTTP_BAD_REQUEST,
+                Response::HTTP_BAD_REQUEST,
                 [],
                 true
             );
@@ -147,7 +147,7 @@ class UserController extends AbstractController
         if ($errors->count() > 0) {
             return new JsonResponse(
                 $serializer->serialize($errors, 'json'),
-                JsonResponse::HTTP_BAD_REQUEST,
+                Response::HTTP_BAD_REQUEST,
                 [],
                 true
             );
@@ -168,8 +168,7 @@ class UserController extends AbstractController
         $emi->persist($updatedUser);
         $emi->flush();
 
-        // Response ou JsonResponse pour HTTP code?
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
     }
 
@@ -189,7 +188,7 @@ class UserController extends AbstractController
         if ($errors->count() > 0) {
             return new JsonResponse(
                 $serializer->serialize($errors, 'json'),
-                JsonResponse::HTTP_BAD_REQUEST,
+                Response::HTTP_BAD_REQUEST,
                 [],
                 true
             );
@@ -200,7 +199,7 @@ class UserController extends AbstractController
         $idCustomer = $content['idCustomer'] ?? -1;
         $updatedUser->setCustomer($customerRepository->find($idCustomer));
 
-        if ($content['password']) {
+        if ($content['password'] !== null) {
             $plaintextPassword = $content['password'];
             $hashedPassword = $passwordHasher->hashPassword(
                 $updatedUser,
@@ -212,8 +211,7 @@ class UserController extends AbstractController
         $emi->persist($updatedUser);
         $emi->flush();
 
-        // Response ou JsonResponse pour HTTP code?
-        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
     }
 
