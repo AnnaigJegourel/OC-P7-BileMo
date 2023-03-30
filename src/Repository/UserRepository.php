@@ -50,6 +50,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
+    public function findByCustomerPagin(int|null $idCustomer, int $page, int $limit): mixed
+    {
+        $qb = $this->createQueryBuilder('u')
+        ->andWhere('u.customer = :customer_id')
+        ->setParameter('customer_id', $idCustomer)
+        ->orderBy('u.id', 'ASC')
+        ->setFirstResult(($page - 1) * $limit)
+        ->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+
     /*
      * Used to upgrade (rehash) the user's password automatically over time.
      */
