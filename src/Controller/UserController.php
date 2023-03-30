@@ -72,9 +72,14 @@ class UserController extends AbstractController
 
     // READ All Users of One Customer.
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
-    public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer): JsonResponse
+    public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer, UserRepository $userRepository, Request $request): JsonResponse
     {
-        $customerUsersList = $customer->getUsers();
+        $idCustomer = $customer->getId();
+        $page = $request->get('page', 1);
+        $limit = $request->get('limit', 3);
+
+        // @phpstan-ignore-next-line
+        $customerUsersList = $userRepository->findByCustomerPagin($idCustomer, $page, $limit);
         $jsonCustUsersList = $serializer->serialize($customerUsersList, 'json', ['groups' => 'getUsers']);
 
         return new JsonResponse($jsonCustUsersList, Response::HTTP_OK, [], true);
