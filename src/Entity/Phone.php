@@ -5,7 +5,19 @@ namespace App\Entity;
 use App\Repository\PhoneRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Hateoas\Configuration\Annotation as Hateoas;
 
+/**
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "app_phone_details",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute= true
+ *      ),
+ *      exclusion = @Hateoas\Exclusion(excludeIf="expr(not is_granted('ROLE_USER'))")
+ * )
+ */
 #[ORM\Entity(repositoryClass: PhoneRepository::class)]
 class Phone
 {
