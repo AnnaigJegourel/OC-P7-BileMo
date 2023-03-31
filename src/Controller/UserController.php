@@ -12,7 +12,6 @@ use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-// use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -151,9 +150,12 @@ class UserController extends AbstractController
         $updatedUser = $serializer->deserialize(
             $request->getContent(),
             User::class,
-            'json',
-            [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
+            'json'
         );
+        // dd($updatedUser);
+        $currentUser->setEmail($updatedUser->getEmail());
+        $currentUser->setFirstName($updatedUser->getFirstName());
+        $currentUser->setLastName($updatedUser->getLastName);
 
         $errors = $validator->validate($updatedUser);
         if ($errors->count() > 0) {
@@ -168,14 +170,15 @@ class UserController extends AbstractController
         $content = $request->toArray();
 
         $idCustomer = $content['idCustomer'] ?? -1;
-        $updatedUser->setCustomer($customerRepository->find($idCustomer));
+        $currentUser->setCustomer($customerRepository->find($idCustomer));
 
         $plaintextPassword = $content['password'];
         $hashedPassword = $passwordHasher->hashPassword(
             $updatedUser,
             $plaintextPassword
         );
-        $updatedUser->setPassword($hashedPassword);
+        // $updatedUser->setPassword($hashedPassword);
+        $currentUser->setPassword($hashedPassword);
 
         $emi->persist($updatedUser);
         $emi->flush();
