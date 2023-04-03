@@ -18,6 +18,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
+
 
 class UserController extends AbstractController
 {
@@ -35,7 +39,24 @@ class UserController extends AbstractController
      */
 
 
-    // READ One User.
+    /**
+     * Retourne les détails de l'utilisateur dont vous saisissez l'identifiant
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="Get the details of a user",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * 
+     * @OA\Tag(name="Users")
+     * 
+     * @param User $user
+     * @param SerializerInterface $serializer
+     * @return JsonResponse
+     */
     #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
     public function getUserDetails(User $user, SerializerInterface $serializer): JsonResponse
     {
@@ -74,7 +95,40 @@ class UserController extends AbstractController
      */
 
 
-    // READ All Users of One Customer.
+    /**
+     * Retourne, pour le client dont vous saisissez l'identifiant, la liste paginée de ses utilisateurs
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="Get all users of a customer",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * 
+     * @OA\Parameter(
+     *     name="page",
+     *     in="query",
+     *     description="Page que vous souhaitez récupérer",
+     *     @OA\Schema(type="int")
+     * )
+     * 
+     * @OA\Parameter(
+     *     name="limit",
+     *     in="query",
+     *     description="Nombre d'éléments par page que vous souhaitez récupérer",
+     *     @OA\Schema(type="int")
+     * )
+     * 
+     * @OA\Tag(name="Users")
+     *
+     * @param Customer $customer
+     * @param SerializerInterface $serializer
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @return JsonResponse
+     */
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
     public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer, UserRepository $userRepository, Request $request): JsonResponse
     {
@@ -92,7 +146,24 @@ class UserController extends AbstractController
     }
 
 
-    // DELETE a User.
+    /**
+     * Supprime l'utilisateur dont vous saisissez l'identifiant
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="Delete a user",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * 
+     * @OA\Tag(name="Users")
+     * 
+     * @param User $user
+     * @param EntityManagerInterface $emi
+     * @return JsonResponse
+     */
     #[Route('/api/users/{id}', name: 'app_user_delete', methods: ['DELETE'])]
     public function deleteUser(User $user, EntityManagerInterface $emi): JsonResponse
     {
@@ -105,6 +176,29 @@ class UserController extends AbstractController
 
 
     // CREATE a User.
+    /**
+     * Crée un nouvel utilisateur
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="Create a user",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * 
+     * @OA\Tag(name="Users")
+     *
+     * @param CustomerRepository $customerRepository
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $emi
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param ValidatorInterface $validator
+     * @return JsonResponse
+     */
     #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
     public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
@@ -143,7 +237,29 @@ class UserController extends AbstractController
     }
 
 
-    // UPDATE a User entirely.
+    /**
+     * Met à jour toutes les informations de l'utilisateur dont vous saisissez l'identifiant
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="Update a user entirely",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * 
+     * @OA\Tag(name="Users")
+     * 
+     * @param User $currentUser
+     * @param CustomerRepository $customerRepository
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $emi
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param ValidatorInterface $validator
+     * @return JsonResponse
+     */
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
     public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
@@ -188,7 +304,29 @@ class UserController extends AbstractController
     }
 
 
-    // UPDATE a User partially.
+    /**
+     * Met à jour les informations que vous saisissez pour l'utilisateur dont vous saisissez l'identifiant
+     * 
+     * @OA\Response(
+     *     response=200,
+     *     description="Update a user partially",
+     *     @OA\JsonContent(
+     *         type="array",
+     *         @OA\Items(ref=@Model(type=User::class))
+     *     )
+     * )
+     * 
+     * @OA\Tag(name="Users")
+     * 
+     * @param User $currentUser
+     * @param CustomerRepository $customerRepository
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $emi
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @param ValidatorInterface $validator
+     * @return JsonResponse
+     */
     #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]
     public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
