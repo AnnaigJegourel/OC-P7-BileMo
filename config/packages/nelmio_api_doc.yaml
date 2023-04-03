@@ -37,10 +37,10 @@ nelmio_api_doc:
                     properties:
                         username:
                             type: string
-                            default: user@customer.com
+                            default: example@example.ex
                         password:
                             type: string
-                            default: password
+                            default: example-password
             securitySchemes:
                 bearerAuth:
                     type: apiKey
