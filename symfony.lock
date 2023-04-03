@@ -186,6 +186,9 @@
             "config/packages/validator.yaml"
         ]
     },
+    "twig/extra-bundle": {
+        "version": "v3.5.1"
+    },
     "willdurand/hateoas-bundle": {
         "version": "2.5",
         "recipe": {
