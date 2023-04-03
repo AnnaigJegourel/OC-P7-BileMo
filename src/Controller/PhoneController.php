@@ -16,8 +16,6 @@ use OpenApi\Annotations as OA;
 
 class PhoneController extends AbstractController
 {
-
-
     /**
      * Retourne la liste paginée des téléphones
      * 
@@ -71,7 +69,7 @@ class PhoneController extends AbstractController
      * 
      * @OA\Response(
      *     response=200,
-     *     description="Get the details of 1 phone",
+     *     description="Get the details of a phone",
      *     @OA\JsonContent(
      *         type="array",
      *         @OA\Items(ref=@Model(type=Phone::class))
@@ -79,6 +77,10 @@ class PhoneController extends AbstractController
      * )
      * 
      * @OA\Tag(name="Phones")
+     * 
+     * @param Phone $phone
+     * @param SerializerInterface $serializer
+     * @return JsonResponse
      */
     #[Route('/api/phones/{id}', name: 'app_phone_details', methods: ['GET'])]
     public function getPhone(Phone $phone, SerializerInterface $serializer): JsonResponse

@@ -10,7 +10,7 @@ nelmio_api_doc:
                     operationId: postCredentialsItem
                     tags:
                         - Token
-                    summary: Permet d'obtenir le token JWT pour se logger.
+                    summary: Permet d'obtenir un token JWT pour se logger.
                     requestBody:
                         description: Crée un nouveau token JWT
                         content:
