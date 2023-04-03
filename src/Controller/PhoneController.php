@@ -18,7 +18,7 @@ class PhoneController extends AbstractController
 {
     /**
      * Retourne la liste paginée des téléphones
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Get all phones",
@@ -27,21 +27,21 @@ class PhoneController extends AbstractController
      *         @OA\Items(ref=@Model(type=Phone::class))
      *     )
      * )
-     * 
+     *
      * @OA\Parameter(
      *     name="page",
      *     in="query",
      *     description="Page que vous souhaitez récupérer",
      *     @OA\Schema(type="int")
      * )
-     * 
+     *
      * @OA\Parameter(
      *     name="limit",
      *     in="query",
      *     description="Nombre d'éléments par page que vous souhaitez récupérer",
      *     @OA\Schema(type="int")
      * )
-     * 
+     *
      * @OA\Tag(name="Phones")
      *
      * @param PhoneRepository $phoneRepository
@@ -66,7 +66,7 @@ class PhoneController extends AbstractController
 
     /**
      * Retourne les détails sur le téléphone dont vous saisissez l'identifiant
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Get the details of a phone",
@@ -75,9 +75,9 @@ class PhoneController extends AbstractController
      *         @OA\Items(ref=@Model(type=Phone::class))
      *     )
      * )
-     * 
+     *
      * @OA\Tag(name="Phones")
-     * 
+     *
      * @param Phone $phone
      * @param SerializerInterface $serializer
      * @return JsonResponse

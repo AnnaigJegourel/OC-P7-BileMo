@@ -41,7 +41,7 @@ class UserController extends AbstractController
 
     /**
      * Retourne les détails de l'utilisateur dont vous saisissez l'identifiant
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Get the details of a user",
@@ -50,9 +50,9 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * 
+     *
      * @OA\Tag(name="Users")
-     * 
+     *
      * @param User $user
      * @param SerializerInterface $serializer
      * @return JsonResponse
@@ -97,7 +97,7 @@ class UserController extends AbstractController
 
     /**
      * Retourne, pour le client dont vous saisissez l'identifiant, la liste paginée de ses utilisateurs
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Get all users of a customer",
@@ -106,14 +106,14 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * 
+     *
      * @OA\Parameter(
      *     name="page",
      *     in="query",
      *     description="Page que vous souhaitez récupérer",
      *     @OA\Schema(type="int")
      * )
-     * 
+     *
      * @OA\Parameter(
      *     name="limit",
      *     in="query",
@@ -148,7 +148,7 @@ class UserController extends AbstractController
 
     /**
      * Supprime l'utilisateur dont vous saisissez l'identifiant
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Delete a user",
@@ -157,9 +157,9 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * 
+     *
      * @OA\Tag(name="Users")
-     * 
+     *
      * @param User $user
      * @param EntityManagerInterface $emi
      * @return JsonResponse
@@ -175,10 +175,9 @@ class UserController extends AbstractController
     }
 
 
-    // CREATE a User.
     /**
      * Crée un nouvel utilisateur
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Create a user",
@@ -187,7 +186,7 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * 
+     *
      * @OA\Tag(name="Users")
      *
      * @param CustomerRepository $customerRepository
@@ -239,7 +238,7 @@ class UserController extends AbstractController
 
     /**
      * Met à jour toutes les informations de l'utilisateur dont vous saisissez l'identifiant
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Update a user entirely",
@@ -248,9 +247,9 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * 
+     *
      * @OA\Tag(name="Users")
-     * 
+     *
      * @param User $currentUser
      * @param CustomerRepository $customerRepository
      * @param Request $request
@@ -306,7 +305,7 @@ class UserController extends AbstractController
 
     /**
      * Met à jour les informations que vous saisissez pour l'utilisateur dont vous saisissez l'identifiant
-     * 
+     *
      * @OA\Response(
      *     response=200,
      *     description="Update a user partially",
@@ -315,9 +314,9 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     * 
+     *
      * @OA\Tag(name="Users")
-     * 
+     *
      * @param User $currentUser
      * @param CustomerRepository $customerRepository
      * @param Request $request
