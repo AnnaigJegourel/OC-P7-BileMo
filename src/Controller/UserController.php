@@ -120,7 +120,7 @@ class UserController extends AbstractController
      *     description="Nombre d'éléments par page que vous souhaitez récupérer",
      *     @OA\Schema(type="int")
      * )
-     * 
+     *
      * @OA\Tag(name="Users")
      *
      * @param Customer $customer
