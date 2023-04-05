@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: CustomerRepository::class)]
 class Customer
 {
+
     /**
      * @var integer|null
      */
@@ -41,9 +42,6 @@ class Customer
     }
 
 
-    /**
-     * @return integer|null
-     */
     public function getId(): ?int
     {
         return $this->id;
@@ -51,9 +49,6 @@ class Customer
     }
 
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
@@ -61,10 +56,6 @@ class Customer
     }
 
 
-    /**
-     * @param string $name
-     * @return self
-     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -84,10 +75,6 @@ class Customer
     }
 
 
-    /**
-     * @param User $user
-     * @return self
-     */
     public function addUser(User $user): self
     {
         // if (!$this->users->contains($user)) {
@@ -101,10 +88,6 @@ class Customer
     }
 
 
-    /**
-     * @param User $user
-     * @return self
-     */
     public function removeUser(User $user): self
     {
         // if ($this->users->removeElement($user)) {
