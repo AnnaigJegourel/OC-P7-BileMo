@@ -187,6 +187,12 @@ class UserController extends AbstractController
      *     )
      * )
      *
+     * @OA\Parameter(
+     *     name="username",
+     *     in="query",
+     *     description="..."
+     * )
+     * require="", body...
      * @OA\Tag(name="Users")
      *
      * @param CustomerRepository $customerRepository
@@ -217,6 +223,7 @@ class UserController extends AbstractController
         $idCustomer = $content['idCustomer'] ?? -1;
         $user->setCustomer($customerRepository->find($idCustomer));
 
+        // Warning: undefined array key "password" => if...
         $plaintextPassword = $content['password'];
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
@@ -262,24 +269,14 @@ class UserController extends AbstractController
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
     public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
-        $updatedUser = $serializer->deserialize(
-            $request->getContent(),
-            User::class,
-            'json'
-        );
+        /** @var User */
+        $updatedUser = $serializer->deserialize($request->getContent(), User::class, 'json');
         // dd($updatedUser);
-        $currentUser->setEmail($updatedUser->getEmail());
-        $currentUser->setFirstName($updatedUser->getFirstName());
-        $currentUser->setLastName($updatedUser->getLastName);
+        // dd($currentUser);
 
         $errors = $validator->validate($updatedUser);
         if ($errors->count() > 0) {
-            return new JsonResponse(
-                $serializer->serialize($errors, 'json'),
-                Response::HTTP_BAD_REQUEST,
-                [],
-                true
-            );
+            return new JsonResponse($serializer->serialize($errors, 'json'), Response::HTTP_BAD_REQUEST, [], true);
         }
 
         $content = $request->toArray();
@@ -292,8 +289,8 @@ class UserController extends AbstractController
             $updatedUser,
             $plaintextPassword
         );
-        // $updatedUser->setPassword($hashedPassword);
-        $currentUser->setPassword($hashedPassword);
+        $updatedUser->setPassword($hashedPassword);
+        // $currentUser->setPassword($hashedPassword);
 
         $emi->persist($updatedUser);
         $emi->flush();
