@@ -190,9 +190,38 @@ class UserController extends AbstractController
      * @OA\Parameter(
      *     name="username",
      *     in="query",
-     *     description="..."
+     *     description="Adresse e-mail (obligatoire!)",
+     *     @OA\Schema(type="email")
      * )
-     * require="", body...
+     *
+     * @OA\Parameter(
+     *     name="password",
+     *     in="query",
+     *     description="Mot de passe (obligatoire!)",
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="firstName",
+     *     in="query",
+     *     description="Prénom (facultatif)",
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="lastName",
+     *     in="query",
+     *     description="Nom (facultatif)",
+     *     @OA\Schema(type="string")
+     * )
+     *
+     * @OA\Parameter(
+     *     name="idCustomer",
+     *     in="query",
+     *     description="Id du client (facultatif)",
+     *     @OA\Schema(type="int")
+     * )
+     *
      * @OA\Tag(name="Users")
      *
      * @param CustomerRepository $customerRepository
@@ -257,7 +286,7 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     *
+     * @OA\RequestBody(@Model(type=User::class, groups={"updateUser"}))
      * @OA\Tag(name="Users")
      *
      * @param User $currentUser
@@ -316,7 +345,13 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     *
+     * @OA\RequestBody(
+     *     request="Update User",
+     *     required=true,
+     *     @OA\JsonContent(
+     *          @OA\Property(type="string", property="name"),
+     *     )
+     * )
      * @OA\Tag(name="Users")
      *
      * @param User $currentUser
