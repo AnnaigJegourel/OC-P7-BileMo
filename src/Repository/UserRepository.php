@@ -21,11 +21,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 {
 
 
-    /**
-     * UserRepository constructor
-     *
-     * @param ManagerRegistry $registry
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -36,9 +31,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Save the User object
      *
-     * @param User $entity
-     * @param boolean $flush
-     * @return void
+     * @param User $entity parameter
+     * @param boolean $flush parameter
      */
     public function save(User $entity, bool $flush=false): void
     {
@@ -54,8 +48,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Delete the User object
      *
-     * @param User $entity
-     * @param boolean $flush
+     * @param User $entity parameter
+     * @param boolean $flush parameter
+     *
      * @return void
      */
     public function remove(User $entity, bool $flush=false): void
@@ -75,6 +70,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @param integer|null $idCustomer
      * @param integer $page
      * @param integer $limit
+     *
      * @return mixed
      */
     public function findByCustomerPagin(int|null $idCustomer, int $page, int $limit): mixed
@@ -96,6 +92,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      *
      * @param PasswordAuthenticatedUserInterface $user
      * @param string $newHashedPassword
+     *
      * @return void
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
@@ -111,13 +108,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    /**
+    /*
      * @return User[] Returns an array of User objects
      *
-     * @param [type] $value
-     * @return array
-     */
-    /*
      *    public function findByExampleField($value): array
      *    {
      *        return $this->createQueryBuilder('u')
@@ -132,12 +125,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
 
 
-    /**
-     * return a user following a field
-     *
-     * @param [type] $value
-     * @return User|null
-     */
     /*
      *    public function findOneBySomeField($value): ?User
      *    {
