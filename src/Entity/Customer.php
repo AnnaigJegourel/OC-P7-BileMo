@@ -12,16 +12,25 @@ use JMS\Serializer\Annotation\Groups;
 class Customer
 {
 
+    /**
+     * @var integer|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['getUsers'])]
     private ?int $id = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     #[Groups(['getUsers'])]
     private ?string $name = null;
 
+    /**
+     * @var Collection
+     */
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 

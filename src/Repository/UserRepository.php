@@ -28,6 +28,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
+    /**
+     * Save the User object
+     *
+     * @param User $entity parameter
+     * @param boolean $flush parameter
+     */
     public function save(User $entity, bool $flush=false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -39,6 +45,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
+    /**
+     * Delete the User object
+     *
+     * @param User $entity parameter
+     * @param boolean $flush parameter
+     *
+     * @return void
+     */
     public function remove(User $entity, bool $flush=false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -50,6 +64,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
+    /**
+     * Fetch a paginated users list of a customer, following id
+     *
+     * @param integer|null $idCustomer
+     * @param integer $page
+     * @param integer $limit
+     *
+     * @return mixed
+     */
     public function findByCustomerPagin(int|null $idCustomer, int $page, int $limit): mixed
     {
         $qb = $this->createQueryBuilder('u')
@@ -64,8 +87,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    /*
-     * Used to upgrade (rehash) the user's password automatically over time.
+    /**
+     * Used to upgrade (rehash) the user's password automatically over time
+     *
+     * @param PasswordAuthenticatedUserInterface $user
+     * @param string $newHashedPassword
+     *
+     * @return void
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
@@ -82,9 +110,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /*
      * @return User[] Returns an array of User objects
-     */
-
-    /*
+     *
      *    public function findByExampleField($value): array
      *    {
      *        return $this->createQueryBuilder('u')

@@ -45,19 +45,28 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
+    /**
+     * @var integer|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['getUsers'])]
     private ?int $id = null;
 
+    /**
+     * users' e-mail, used as identifier "username"
+     * @var string
+     */
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['getUsers'])]
     #[Assert\NotBlank(message:"Adresse e-mail requise!")]
     #[Assert\Email(message: "L'email {{ value }} n'est pas valide.")]
     private ?string $email = null;
 
-    /** @var array<int,string> */
+    /**
+     * @var array<int,string>
+     */
     #[ORM\Column(type: 'json', nullable: true)]
     #[Groups(['getUsers'])]
     private array $roles = ['ROLE_USER'];
@@ -68,16 +77,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['getUsers'])]
     #[Assert\Length(min: 1, max: 255, minMessage:"Le nom doit faire au minimum {{limit}} caractères", maxMessage:"Le nom doit faire au maximum {{limit}} caractères")]
     private ?string $firstName = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['getUsers'])]
     #[Assert\Length(min: 1, max: 255, minMessage:"Le nom doit faire au minimum {{limit}} caractères", maxMessage:"Le nom doit faire au maximum {{limit}} caractères")]
     private ?string $lastName = null;
 
+    /**
+     * Customer linked to this User
+     *
+     * @var Customer|null
+     */
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: true)]
     #[Groups(['getUsers'])]

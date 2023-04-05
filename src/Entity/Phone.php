@@ -22,32 +22,59 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class Phone
 {
 
+    /**
+     * @var integer|null
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $brand = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $colour = null;
 
+    /**
+     * @var string|null
+     */
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    /**
+     * @var float|null
+     */
     #[ORM\Column(nullable: true)]
     private ?float $height = null;
 
+    /**
+     * @var float|null
+     */
     #[ORM\Column(nullable: true)]
     private ?float $weight = null;
 
+    /**
+     * @var float|null
+     */
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
+    /**
+     * @var float|null
+     */
     #[ORM\Column(nullable: true)]
     private ?float $width = null;
 

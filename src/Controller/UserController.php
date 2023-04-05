@@ -207,6 +207,9 @@ class UserController extends AbstractController
     #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
     public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
+        /**
+         * @var User
+         */
         $user = $serializer->deserialize($request->getContent(), User::class, 'json');
         $errors = $validator->validate($user);
         if ($errors->count() > 0) {
@@ -269,7 +272,9 @@ class UserController extends AbstractController
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
     public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
-        /** @var User */
+        /**
+         * @var User
+         */
         $updatedUser = $serializer->deserialize($request->getContent(), User::class, 'json');
         // dd($updatedUser);
         // dd($currentUser);
@@ -326,6 +331,9 @@ class UserController extends AbstractController
     #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]
     public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
     {
+        /**
+         * @var User
+         */
         $updatedUser = $serializer->deserialize(
             $request->getContent(),
             User::class,

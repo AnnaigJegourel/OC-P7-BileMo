@@ -25,6 +25,13 @@ class PhoneRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Save the Phone object
+     *
+     * @param Phone $entity
+     * @param boolean $flush
+     * @return void
+     */
     public function save(Phone $entity, bool $flush=false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -36,6 +43,13 @@ class PhoneRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Delete the Phone object
+     *
+     * @param Phone $entity
+     * @param boolean $flush
+     * @return void
+     */
     public function remove(Phone $entity, bool $flush=false): void
     {
         $this->getEntityManager()->remove($entity);
@@ -47,6 +61,13 @@ class PhoneRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Fetch all Phone objects & paginate them
+     *
+     * @param integer $page
+     * @param integer $limit
+     * @return mixed
+     */
     public function findAllWithPagination(int $page, int $limit): mixed
     {
         $qb = $this->createQueryBuilder('p')
@@ -58,10 +79,12 @@ class PhoneRepository extends ServiceEntityRepository
     }
 
 
-    /*
+    /**
      * @return Phone[] Returns an array of Phone objects
+     *
+     * @param [type] $value
+     * @return array
      */
-
     /*
      *   public function findByExampleField($value): array
      *   {
@@ -77,6 +100,12 @@ class PhoneRepository extends ServiceEntityRepository
      */
 
 
+    /**
+     * Fetch one object following a specified field
+     *
+     * @param [type] $value
+     * @return Phone|null
+     */
     /*
      * public function findOneBySomeField($value): ?Phone
      * {
