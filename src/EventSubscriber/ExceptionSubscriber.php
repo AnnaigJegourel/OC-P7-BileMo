@@ -14,8 +14,10 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event): void
     {
+        // return;
         $exception = $event->getThrowable();
-
+        // récupérer debug mode
+        // if(debug) -> return directement, sinon...
         if ($exception instanceof HttpException) {
             $status = $exception->getStatusCode();
         } else {
