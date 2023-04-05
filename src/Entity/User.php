@@ -55,8 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     /**
-     * users' e-mail, used as identifier "username"
-     * @var string
+     * @var string Users' e-mail, used as identifier "username"
      */
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['getUsers'])]

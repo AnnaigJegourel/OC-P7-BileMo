@@ -12,6 +12,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
 {
 
 
+    /**
+     * Get Kernel exceptions
+     *
+     * @param ExceptionEvent $event
+     */
     public function onKernelException(ExceptionEvent $event): void
     {
         // return;
@@ -33,6 +38,12 @@ class ExceptionSubscriber implements EventSubscriberInterface
     }
 
 
+    /**
+     * Return Kernel Exception event
+     *
+     * @return array
+     */
+    // @phpstan-ignore-next-line
     public static function getSubscribedEvents(): array
     {
         return [KernelEvents::EXCEPTION => 'onKernelException'];

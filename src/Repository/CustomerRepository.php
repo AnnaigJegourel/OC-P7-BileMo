@@ -18,6 +18,11 @@ class CustomerRepository extends ServiceEntityRepository
 {
 
 
+    /**
+     * Customer object constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Customer::class);
@@ -25,6 +30,14 @@ class CustomerRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Save the Customer object to the database
+     *
+     * @param Customer $entity
+     * @param boolean $flush
+     *
+     * @return void
+     */
     public function save(Customer $entity, bool $flush=false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -36,6 +49,14 @@ class CustomerRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Delete the Customer object from the database
+     *
+     * @param Customer $entity
+     * @param boolean $flush
+     *
+     * @return void
+     */
     public function remove(Customer $entity, bool $flush=false): void
     {
         $this->getEntityManager()->remove($entity);
