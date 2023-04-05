@@ -104,9 +104,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Customer $customer = null;
 
 
-    /**
-     * @return integer|null
-     */
     public function getId(): ?int
     {
         return $this->id;
@@ -114,9 +111,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @return string|null
-     */
     public function getEmail(): ?string
     {
         return $this->email;
@@ -124,10 +118,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @param string $email
-     * @return self
-     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -199,10 +189,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @param string $password
-     * @return self
-     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -223,9 +209,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @return string|null
-     */
     public function getFirstName(): ?string
     {
         return $this->firstName;
@@ -233,10 +216,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @param string|null $firstName
-     * @return self
-     */
     public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
@@ -246,9 +225,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @return string|null
-     */
     public function getLastName(): ?string
     {
         return $this->lastName;
@@ -256,10 +232,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @param string|null $lastName
-     * @return self
-     */
     public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
@@ -269,9 +241,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @return Customer|null
-     */
     public function getCustomer(): ?Customer
     {
         return $this->customer;
@@ -279,10 +248,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    /**
-     * @param Customer|null $customer
-     * @return self
-     */
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
