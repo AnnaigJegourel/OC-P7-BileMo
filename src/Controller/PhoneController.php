@@ -44,9 +44,9 @@ class PhoneController extends AbstractController
      *
      * @OA\Tag(name="Phones")
      *
-     * @param PhoneRepository $phoneRepository
-     * @param SerializerInterface $serializer
-     * @param Request $request
+     * @param PhoneRepository $phoneRepository Parameter
+     * @param SerializerInterface $serializer Parameter
+     * @param Request $request Parameter
      *
      * @return JsonResponse
      */
@@ -79,8 +79,8 @@ class PhoneController extends AbstractController
      *
      * @OA\Tag(name="Phones")
      *
-     * @param Phone $phone
-     * @param SerializerInterface $serializer
+     * @param Phone $phone Parameter
+     * @param SerializerInterface $serializer Parameter
      *
      * @return JsonResponse
      */

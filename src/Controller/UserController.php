@@ -53,8 +53,8 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param User $user
-     * @param SerializerInterface $serializer
+     * @param User $user Parameter
+     * @param SerializerInterface $serializer Parameter
      *
      * @return JsonResponse
      */
@@ -123,10 +123,10 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param Customer $customer
-     * @param SerializerInterface $serializer
-     * @param UserRepository $userRepository
-     * @param Request $request
+     * @param Customer $customer Parameter
+     * @param SerializerInterface $serializer Parameter
+     * @param UserRepository $userRepository Parameter
+     * @param Request $request Parameter
      *
      * @return JsonResponse
      */
@@ -160,8 +160,8 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param User $user
-     * @param EntityManagerInterface $emi
+     * @param User $user Parameter
+     * @param EntityManagerInterface $emi Parameter
      *
      * @return JsonResponse
      */
@@ -219,13 +219,13 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param CustomerRepository $customerRepository
-     * @param Request $request
-     * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $emi
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param ValidatorInterface $validator
+     * @param CustomerRepository $customerRepository Parameter
+     * @param Request $request Parameter
+     * @param SerializerInterface $serializer Parameter
+     * @param EntityManagerInterface $emi Parameter
+     * @param UrlGeneratorInterface $urlGenerator Parameter
+     * @param UserPasswordHasherInterface $passwordHasher Parameter
+     * @param ValidatorInterface $validator Parameter
      *
      * @return JsonResponse
      */
@@ -285,13 +285,13 @@ class UserController extends AbstractController
      * @OA\RequestBody(@Model(type=User::class, groups={"updateUser"}))
      * @OA\Tag(name="Users")
      *
-     * @param User $currentUser
-     * @param CustomerRepository $customerRepository
-     * @param Request $request
-     * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $emi
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param ValidatorInterface $validator
+     * @param User $currentUser Parameter
+     * @param CustomerRepository $customerRepository Parameter
+     * @param Request $request Parameter
+     * @param SerializerInterface $serializer Parameter
+     * @param EntityManagerInterface $emi Parameter
+     * @param UserPasswordHasherInterface $passwordHasher Parameter
+     * @param ValidatorInterface $validator Parameter
      *
      * @return JsonResponse
      */
@@ -351,13 +351,13 @@ class UserController extends AbstractController
      * )
      * @OA\Tag(name="Users")
      *
-     * @param User $currentUser
-     * @param CustomerRepository $customerRepository
-     * @param Request $request
-     * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $emi
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param ValidatorInterface $validator
+     * @param User $currentUser Parameter
+     * @param CustomerRepository $customerRepository Parameter
+     * @param Request $request Parameter
+     * @param SerializerInterface $serializer Parameter
+     * @param EntityManagerInterface $emi Parameter
+     * @param UserPasswordHasherInterface $passwordHasher Parameter
+     * @param ValidatorInterface $validator Parameter
      *
      * @return JsonResponse
      */

@@ -24,7 +24,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * User object constructor
      *
-     * @param ManagerRegistry $registry parameter
+     * @param ManagerRegistry $registry Parameter
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -36,8 +36,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Save the User object to the database
      *
-     * @param User $entity parameter
-     * @param boolean $flush parameter
+     * @param User $entity Parameter
+     * @param boolean $flush Parameter
      */
     public function save(User $entity, bool $flush=false): void
     {
@@ -53,8 +53,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Delete the User object from the database
      *
-     * @param User $entity parameter
-     * @param boolean $flush parameter
+     * @param User $entity Parameter
+     * @param boolean $flush Parameter
      */
     public function remove(User $entity, bool $flush=false): void
     {
@@ -70,9 +70,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Fetch a paginated users list of a customer, following id
      *
-     * @param integer|null $idCustomer
-     * @param integer $page
-     * @param integer $limit
+     * @param integer|null $idCustomer Parameter
+     * @param integer $page Parameter
+     * @param integer $limit Parameter
      *
      * @return mixed
      */
@@ -93,8 +93,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time
      *
-     * @param PasswordAuthenticatedUserInterface $user
-     * @param string $newHashedPassword
+     * @param PasswordAuthenticatedUserInterface $user Parameter
+     * @param string $newHashedPassword Parameter
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
