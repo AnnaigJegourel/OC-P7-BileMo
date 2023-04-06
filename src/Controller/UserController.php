@@ -325,13 +325,15 @@ class UserController extends AbstractController
         $currentUser->setEmail($content['email']);
 
         // On màj le rôle, le prénom & le nom s'ils sont saisis.
-        if (isset($content['roles']) && $content['roles']!==null) {
+        if (isset($content['roles']) && $content['roles'] !==null) {
             $currentUser->setRoles($content['roles']);
         }
-        if (isset($content['firstName']) && $content['firstName']!==null) {
+
+        if (isset($content['firstName']) && $content['firstName'] !==null) {
             $currentUser->setFirstName($content['firstName']);
         }
-        if (isset($content['lastName']) && $content['lastName']!==null) {
+
+        if (isset($content['lastName']) && $content['lastName'] !==null) {
             $currentUser->setLastName($content['lastName']);
         }
 

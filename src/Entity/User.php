@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message:"Adresse e-mail requise!")]
     #[Assert\Email(message: "L'email {{ value }} n'est pas valide.")]
     /**
-     * @var string Users' e-mail, used as identifier "username"
+     * @var string User e-mail used as identifier
      */
     private ?string $email = null;
 
