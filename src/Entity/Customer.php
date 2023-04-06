@@ -17,21 +17,21 @@ class Customer
     #[ORM\Column]
     #[Groups(['getUsers'])]
     /**
-     * @var integer|null
+     * @var int|null
      */
     private ?int $id = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['getUsers'])]
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255)]
-    #[Groups(['getUsers'])]
     private ?string $name = null;
 
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: User::class, orphanRemoval: true)]
     /**
      * @var Collection
      */
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
 
@@ -87,7 +87,6 @@ class Customer
      */
     public function addUser(User $user): self
     {
-        // if (!$this->users->contains($user)) {
         if ($this->users->contains($user) === false) {
                 $this->users->add($user);
             $user->setCustomer($this);
@@ -107,7 +106,6 @@ class Customer
      */
     public function removeUser(User $user): self
     {
-        // if ($this->users->removeElement($user)) {
         if ($this->users->removeElement($user) === true) {
                 // Set the owning side to null (unless already changed).
                 $user->setCustomer(null);
