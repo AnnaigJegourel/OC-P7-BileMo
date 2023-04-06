@@ -11,13 +11,19 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    /*
-     * hash password
+    /**
+     * Hash password
+     *
      * @var UserPasswordHasherInterface
      */
     private UserPasswordHasherInterface $userPasswordHasher;
 
 
+    /**
+     * Fixtures constructor
+     *
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     */
     public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
         $this->userPasswordHasher = $userPasswordHasher;
@@ -25,14 +31,21 @@ class AppFixtures extends Fixture
     }
 
 
+    /**
+     * Load the fixtures
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
-        // CUSTOMER.
+        // Load customers.
         $customer = new Customer;
         $customer->setName('CustomerName');
         $manager->persist($customer);
 
-        // USERS.
+        // Load users.
         for ($i = 0; $i < 5; $i++) {
             $user = new User;
 
@@ -46,7 +59,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
-        // PHONES.
+        // Load phones.
         for ($i = 0; $i < 20; $i++) {
             $phone = new Phone;
 

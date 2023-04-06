@@ -18,6 +18,11 @@ class PhoneRepository extends ServiceEntityRepository
 {
 
 
+    /**
+     * Phone object constructor
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Phone::class);
@@ -26,17 +31,18 @@ class PhoneRepository extends ServiceEntityRepository
 
 
     /**
-     * Save the Phone object
+     * Save the Phone object to the database
      *
      * @param Phone $entity
      * @param boolean $flush
+     *
      * @return void
      */
     public function save(Phone $entity, bool $flush=false): void
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush === true) {
+        if (true === $flush) {
             $this->getEntityManager()->flush();
         }
 
@@ -44,10 +50,11 @@ class PhoneRepository extends ServiceEntityRepository
 
 
     /**
-     * Delete the Phone object
+     * Delete the Phone object from the database
      *
      * @param Phone $entity
      * @param boolean $flush
+     *
      * @return void
      */
     public function remove(Phone $entity, bool $flush=false): void
@@ -66,6 +73,7 @@ class PhoneRepository extends ServiceEntityRepository
      *
      * @param integer $page
      * @param integer $limit
+     *
      * @return mixed
      */
     public function findAllWithPagination(int $page, int $limit): mixed
@@ -79,13 +87,9 @@ class PhoneRepository extends ServiceEntityRepository
     }
 
 
-    /**
+    /*
      * @return Phone[] Returns an array of Phone objects
      *
-     * @param [type] $value
-     * @return array
-     */
-    /*
      *   public function findByExampleField($value): array
      *   {
      *       return $this->createQueryBuilder('p')
@@ -100,13 +104,9 @@ class PhoneRepository extends ServiceEntityRepository
      */
 
 
-    /**
+    /*
      * Fetch one object following a specified field
      *
-     * @param [type] $value
-     * @return Phone|null
-     */
-    /*
      * public function findOneBySomeField($value): ?Phone
      * {
      *    return $this->createQueryBuilder('p')

@@ -55,8 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     /**
-     * users' e-mail, used as identifier "username"
-     * @var string
+     * @var string Users' e-mail, used as identifier "username"
      */
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['getUsers'])]
@@ -131,6 +130,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUserIdentifier(): string
     {
@@ -154,6 +155,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return array<int,string> $roles
      */
     public function getRoles(): array
     {
@@ -181,6 +184,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see PasswordAuthenticatedUserInterface
+     *
+     * @return string
      */
     public function getPassword(): string
     {
@@ -200,6 +205,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return void
      */
     public function eraseCredentials(): void
     {

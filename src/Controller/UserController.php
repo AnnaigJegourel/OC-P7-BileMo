@@ -35,6 +35,7 @@ class UserController extends AbstractController
      *     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
      *
      *     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
+     *
      * }
      */
 
@@ -50,11 +51,11 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     *
      * @OA\Tag(name="Users")
      *
      * @param User $user
      * @param SerializerInterface $serializer
+     *
      * @return JsonResponse
      */
     #[Route('/api/users/{id}', name: 'app_user_details', methods: ['GET'])]
@@ -78,6 +79,7 @@ class UserController extends AbstractController
      *     $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
      *
      *     return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
+     *
      * }
      */
 
@@ -91,6 +93,7 @@ class UserController extends AbstractController
      *     $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
      *
      *     return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
+     *
      * }
      */
 
@@ -106,27 +109,25 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     *
      * @OA\Parameter(
      *     name="page",
      *     in="query",
      *     description="Page que vous souhaitez récupérer",
      *     @OA\Schema(type="int")
      * )
-     *
      * @OA\Parameter(
      *     name="limit",
      *     in="query",
      *     description="Nombre d'éléments par page que vous souhaitez récupérer",
      *     @OA\Schema(type="int")
      * )
-     *
      * @OA\Tag(name="Users")
      *
      * @param Customer $customer
      * @param SerializerInterface $serializer
      * @param UserRepository $userRepository
      * @param Request $request
+     *
      * @return JsonResponse
      */
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
@@ -157,11 +158,11 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     *
      * @OA\Tag(name="Users")
      *
      * @param User $user
      * @param EntityManagerInterface $emi
+     *
      * @return JsonResponse
      */
     #[Route('/api/users/{id}', name: 'app_user_delete', methods: ['DELETE'])]
@@ -186,42 +187,36 @@ class UserController extends AbstractController
      *         @OA\Items(ref=@Model(type=User::class))
      *     )
      * )
-     *
      * @OA\Parameter(
      *     name="username",
      *     in="query",
      *     description="Adresse e-mail (obligatoire!)",
      *     @OA\Schema(type="email")
      * )
-     *
      * @OA\Parameter(
      *     name="password",
      *     in="query",
      *     description="Mot de passe (obligatoire!)",
      *     @OA\Schema(type="string")
      * )
-     *
      * @OA\Parameter(
      *     name="firstName",
      *     in="query",
      *     description="Prénom (facultatif)",
      *     @OA\Schema(type="string")
      * )
-     *
      * @OA\Parameter(
      *     name="lastName",
      *     in="query",
      *     description="Nom (facultatif)",
      *     @OA\Schema(type="string")
      * )
-     *
      * @OA\Parameter(
      *     name="idCustomer",
      *     in="query",
      *     description="Id du client (facultatif)",
      *     @OA\Schema(type="int")
      * )
-     *
      * @OA\Tag(name="Users")
      *
      * @param CustomerRepository $customerRepository
@@ -231,6 +226,7 @@ class UserController extends AbstractController
      * @param UrlGeneratorInterface $urlGenerator
      * @param UserPasswordHasherInterface $passwordHasher
      * @param ValidatorInterface $validator
+     *
      * @return JsonResponse
      */
     #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
@@ -296,6 +292,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $emi
      * @param UserPasswordHasherInterface $passwordHasher
      * @param ValidatorInterface $validator
+     *
      * @return JsonResponse
      */
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
@@ -361,6 +358,7 @@ class UserController extends AbstractController
      * @param EntityManagerInterface $emi
      * @param UserPasswordHasherInterface $passwordHasher
      * @param ValidatorInterface $validator
+     *
      * @return JsonResponse
      */
     #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]

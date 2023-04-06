@@ -12,13 +12,13 @@ use JMS\Serializer\Annotation\Groups;
 class Customer
 {
 
-    /**
-     * @var integer|null
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['getUsers'])]
+    /**
+     * @var integer|null
+     */
     private ?int $id = null;
 
     /**
@@ -35,6 +35,9 @@ class Customer
     private Collection $users;
 
 
+    /**
+     * Customer constructor
+     */
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -75,6 +78,13 @@ class Customer
     }
 
 
+    /**
+     * Add a User object to the database
+     *
+     * @param User $user
+     *
+     * @return self
+     */
     public function addUser(User $user): self
     {
         // if (!$this->users->contains($user)) {
@@ -88,6 +98,13 @@ class Customer
     }
 
 
+    /**
+     * Delete a User object from the database
+     *
+     * @param User $user
+     *
+     * @return self
+     */
     public function removeUser(User $user): self
     {
         // if ($this->users->removeElement($user)) {
