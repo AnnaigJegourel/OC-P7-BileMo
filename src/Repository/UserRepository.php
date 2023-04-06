@@ -38,6 +38,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      *
      * @param User $entity Parameter
      * @param boolean $flush Parameter
+     *
+     * @return void
      */
     public function save(User $entity, bool $flush=false): void
     {

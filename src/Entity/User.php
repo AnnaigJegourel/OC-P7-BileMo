@@ -130,6 +130,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUserIdentifier(): string
     {
@@ -165,7 +167,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param array<int,string> $roles
+     * @param array<int,string> $roles Parameter
      *
      * @return $this
      */
