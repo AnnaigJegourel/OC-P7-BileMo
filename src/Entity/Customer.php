@@ -12,13 +12,13 @@ use JMS\Serializer\Annotation\Groups;
 class Customer
 {
 
-    /**
-     * @var integer|null
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['getUsers'])]
+    /**
+     * @var integer|null
+     */
     private ?int $id = null;
 
     /**
