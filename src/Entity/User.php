@@ -45,62 +45,63 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    /**
-     * @var integer|null
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Groups(['getUsers'])]
+    /**
+     * @var integer|null
+     */
     private ?int $id = null;
 
-    /**
-     * @var string Users' e-mail, used as identifier "username"
-     */
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['getUsers'])]
     #[Assert\NotBlank(message:"Adresse e-mail requise!")]
     #[Assert\Email(message: "L'email {{ value }} n'est pas valide.")]
+    /**
+     * @var string User e-mail used as identifier
+     */
     private ?string $email = null;
 
-    /**
-     * @var array<int,string>
-     */
     #[ORM\Column(type: 'json', nullable: true)]
     #[Groups(['getUsers'])]
+    /**
+     * @var array<int,string> $roles
+     */
+    // @phpstan-ignore-next-line
     private array $roles = ['ROLE_USER'];
 
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le mot de passe est requis!")]
     /**
      * @var string|null The hashed password
      */
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message:"Le mot de passe est requis!")]
     private ?string $password = null;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['getUsers'])]
     #[Assert\Length(min: 1, max: 255, minMessage:"Le nom doit faire au minimum {{limit}} caractères", maxMessage:"Le nom doit faire au maximum {{limit}} caractères")]
+    /**
+     * @var string|null
+     */
     private ?string $firstName = null;
 
-    /**
-     * @var string|null
-     */
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['getUsers'])]
     #[Assert\Length(min: 1, max: 255, minMessage:"Le nom doit faire au minimum {{limit}} caractères", maxMessage:"Le nom doit faire au maximum {{limit}} caractères")]
+    /**
+     * @var string|null
+     */
     private ?string $lastName = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['getUsers'])]
     /**
      * Customer linked to this User
      *
      * @var Customer|null
      */
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['getUsers'])]
     private ?Customer $customer = null;
 
 
