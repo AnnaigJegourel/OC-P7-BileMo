@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     /**
      * Fixtures constructor
      *
-     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param UserPasswordHasherInterface $userPasswordHasher parameter
      */
     public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
@@ -34,7 +34,7 @@ class AppFixtures extends Fixture
     /**
      * Load the fixtures
      *
-     * @param ObjectManager $manager
+     * @param ObjectManager $manager parameter
      *
      * @return void
      */

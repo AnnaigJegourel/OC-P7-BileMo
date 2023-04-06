@@ -21,7 +21,7 @@ class PhoneRepository extends ServiceEntityRepository
     /**
      * Phone object constructor
      *
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry $registry parameter
      */
     public function __construct(ManagerRegistry $registry)
     {

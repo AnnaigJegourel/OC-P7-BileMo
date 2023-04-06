@@ -81,7 +81,7 @@ class Customer
     /**
      * Add a User object to the database
      *
-     * @param User $user
+     * @param User $user parameter
      *
      * @return self
      */
