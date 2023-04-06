@@ -251,7 +251,6 @@ class UserController extends AbstractController
         $idCustomer = $content['idCustomer'] ?? -1;
         $user->setCustomer($customerRepository->find($idCustomer));
 
-        // Warning: undefined array key "password" => if...
         $plaintextPassword = $content['password'];
         $hashedPassword = $passwordHasher->hashPassword(
             $user,
@@ -302,8 +301,6 @@ class UserController extends AbstractController
          * @var User
          */
         $updatedUser = $serializer->deserialize($request->getContent(), User::class, 'json');
-        // dd($updatedUser);
-        // dd($currentUser);
 
         $errors = $validator->validate($updatedUser);
         if ($errors->count() > 0) {
@@ -312,18 +309,33 @@ class UserController extends AbstractController
 
         $content = $request->toArray();
 
+        // On met à jour le client:
         $idCustomer = $content['idCustomer'] ?? -1;
         $currentUser->setCustomer($customerRepository->find($idCustomer));
 
+        // On hache & màj le mot de passe:
         $plaintextPassword = $content['password'];
         $hashedPassword = $passwordHasher->hashPassword(
             $updatedUser,
             $plaintextPassword
         );
-        $updatedUser->setPassword($hashedPassword);
-        // $currentUser->setPassword($hashedPassword);
+        $currentUser->setPassword($hashedPassword);
 
-        $emi->persist($updatedUser);
+        // On màj l'e-mail:
+        $currentUser->setEmail($content['email']);
+
+        // On màj le rôle, le prénom & le nom s'ils sont saisis:
+        if (isset($content['roles']) && $content['roles']!==null) {
+            $currentUser->setRoles($content['roles']);
+        }
+        if (isset($content['firstName']) && $content['firstName']!==null) {
+            $currentUser->setFirstName($content['firstName']);
+        }
+        if (isset($content['lastName']) && $content['lastName']!==null) {
+            $currentUser->setLastName($content['lastName']);
+        }
+
+        $emi->persist($currentUser);
         $emi->flush();
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
@@ -361,49 +373,49 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]
-    public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
-    {
-        /**
-         * @var User
-         */
-        $updatedUser = $serializer->deserialize(
-            $request->getContent(),
-            User::class,
-            'json',
-            [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
-        );
+    // #[Route('/api/users/{id}', name: 'app_user_update_part', methods: ['PATCH'])]
+    // public function updatePartUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
+    // {
+    //     /**
+    //      * @var User
+    //      */
+    //     $updatedUser = $serializer->deserialize(
+    //         $request->getContent(),
+    //         User::class,
+    //         'json',
+    //         [AbstractNormalizer::OBJECT_TO_POPULATE => $currentUser]
+    //     );
 
-        $errors = $validator->validate($updatedUser);
-        if ($errors->count() > 0) {
-            return new JsonResponse(
-                $serializer->serialize($errors, 'json'),
-                Response::HTTP_BAD_REQUEST,
-                [],
-                true
-            );
-        }
+    //     $errors = $validator->validate($updatedUser);
+    //     if ($errors->count() > 0) {
+    //         return new JsonResponse(
+    //             $serializer->serialize($errors, 'json'),
+    //             Response::HTTP_BAD_REQUEST,
+    //             [],
+    //             true
+    //         );
+    //     }
 
-        $content = $request->toArray();
+    //     $content = $request->toArray();
 
-        $idCustomer = $content['idCustomer'] ?? -1;
-        $updatedUser->setCustomer($customerRepository->find($idCustomer));
+    //     $idCustomer = $content['idCustomer'] ?? -1;
+    //     $updatedUser->setCustomer($customerRepository->find($idCustomer));
 
-        if ($content['password'] !== null) {
-            $plaintextPassword = $content['password'];
-            $hashedPassword = $passwordHasher->hashPassword(
-                $updatedUser,
-                $plaintextPassword
-            );
-            $updatedUser->setPassword($hashedPassword);
-        }
+    //     if ($content['password'] !== null) {
+    //         $plaintextPassword = $content['password'];
+    //         $hashedPassword = $passwordHasher->hashPassword(
+    //             $updatedUser,
+    //             $plaintextPassword
+    //         );
+    //         $updatedUser->setPassword($hashedPassword);
+    //     }
 
-        $emi->persist($updatedUser);
-        $emi->flush();
+    //     $emi->persist($updatedUser);
+    //     $emi->flush();
 
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    //     return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
-    }
+    // }
 
 
 }
