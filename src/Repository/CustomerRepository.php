@@ -42,7 +42,7 @@ class CustomerRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if (true === $flush) {
+        if ($flush === true) {
             $this->getEntityManager()->flush();
         }
 
