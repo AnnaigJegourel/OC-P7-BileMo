@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Groups(['getUsers'])]
     /**
-     * @var int|null
+     * @var integer|null
      */
     private ?int $id = null;
 

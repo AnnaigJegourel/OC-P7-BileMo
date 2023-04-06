@@ -26,7 +26,7 @@ class Phone
     #[ORM\GeneratedValue]
     #[ORM\Column]
     /**
-     * @var int|null
+     * @var integer|null
      */
     private ?int $id = null;
 
