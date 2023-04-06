@@ -22,60 +22,60 @@ use Hateoas\Configuration\Annotation as Hateoas;
 class Phone
 {
 
-    /**
-     * @var integer|null
-     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /**
+     * @var int|null
+     */
     private ?int $id = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $brand = null;
 
+    #[ORM\Column(length: 255)]
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
     /**
      * @var string|null
      */
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $colour = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     /**
      * @var string|null
      */
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(nullable: true)]
     /**
      * @var float|null
      */
-    #[ORM\Column(nullable: true)]
     private ?float $height = null;
 
+    #[ORM\Column(nullable: true)]
     /**
      * @var float|null
      */
-    #[ORM\Column(nullable: true)]
     private ?float $weight = null;
 
+    #[ORM\Column(nullable: true)]
     /**
      * @var float|null
      */
-    #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
+    #[ORM\Column(nullable: true)]
     /**
      * @var float|null
      */
-    #[ORM\Column(nullable: true)]
     private ?float $width = null;
 
 
