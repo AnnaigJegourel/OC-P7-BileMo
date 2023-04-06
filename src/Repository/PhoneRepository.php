@@ -42,7 +42,7 @@ class PhoneRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->persist($entity);
 
-        if ($flush === true) {
+        if (true === $flush) {
             $this->getEntityManager()->flush();
         }
 
