@@ -81,7 +81,7 @@ class Customer
     /**
      * Add a User object to the database
      *
-     * @param User $user parameter
+     * @param User  $user Parameter
      *
      * @return self
      */
@@ -101,7 +101,7 @@ class Customer
     /**
      * Delete a User object from the database
      *
-     * @param User $user
+     * @param User  $user Parameter
      *
      * @return self
      */

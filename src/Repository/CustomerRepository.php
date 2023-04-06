@@ -33,8 +33,8 @@ class CustomerRepository extends ServiceEntityRepository
     /**
      * Save the Customer object to the database
      *
-     * @param Customer $entity parameter
-     * @param boolean $flush parameter
+     * @param Customer  $entity Parameter
+     * @param boolean  $flush Parameter
      *
      * @return void
      */
@@ -52,8 +52,8 @@ class CustomerRepository extends ServiceEntityRepository
     /**
      * Delete the Customer object from the database
      *
-     * @param Customer $entity
-     * @param boolean $flush
+     * @param Customer  $entity Parameter
+     * @param boolean  $flush Parameter
      *
      * @return void
      */
