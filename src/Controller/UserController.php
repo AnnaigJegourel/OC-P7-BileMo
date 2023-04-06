@@ -309,11 +309,11 @@ class UserController extends AbstractController
 
         $content = $request->toArray();
 
-        // On met à jour le client:
+        // On met à jour le client.
         $idCustomer = $content['idCustomer'] ?? -1;
         $currentUser->setCustomer($customerRepository->find($idCustomer));
 
-        // On hache & màj le mot de passe:
+        // On hache & màj le mot de passe.
         $plaintextPassword = $content['password'];
         $hashedPassword = $passwordHasher->hashPassword(
             $updatedUser,
@@ -321,10 +321,10 @@ class UserController extends AbstractController
         );
         $currentUser->setPassword($hashedPassword);
 
-        // On màj l'e-mail:
+        // On màj l'e-mail.
         $currentUser->setEmail($content['email']);
 
-        // On màj le rôle, le prénom & le nom s'ils sont saisis:
+        // On màj le rôle, le prénom & le nom s'ils sont saisis.
         if (isset($content['roles']) && $content['roles']!==null) {
             $currentUser->setRoles($content['roles']);
         }
