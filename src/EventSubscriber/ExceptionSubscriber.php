@@ -17,7 +17,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     /**
      * Get Kernel exceptions
      *
-     * @param ExceptionEvent $event Parameter
+     * @param ExceptionEvent $event
      *
      * @return void
      */

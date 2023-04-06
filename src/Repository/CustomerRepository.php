@@ -21,7 +21,7 @@ class CustomerRepository extends ServiceEntityRepository
     /**
      * Customer object constructor
      *
-     * @param ManagerRegistry $registry Parameter
+     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -33,8 +33,8 @@ class CustomerRepository extends ServiceEntityRepository
     /**
      * Save the Customer object to the database
      *
-     * @param Customer $entity Parameter
-     * @param boolean $flush Parameter
+     * @param Customer $entity
+     * @param boolean $flush
      *
      * @return void
      */
@@ -52,8 +52,8 @@ class CustomerRepository extends ServiceEntityRepository
     /**
      * Delete the Customer object from the database
      *
-     * @param Customer $entity Parameter
-     * @param boolean $flush Parameter
+     * @param Customer $entity
+     * @param boolean $flush
      *
      * @return void
      */

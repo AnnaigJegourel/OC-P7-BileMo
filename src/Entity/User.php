@@ -155,6 +155,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return array<int,string> $roles
      */
     public function getRoles(): array
     {
@@ -167,7 +169,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param array<int,string> $roles Parameter
+     * @param array<int,string> $roles
      *
      * @return $this
      */
@@ -182,6 +184,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see PasswordAuthenticatedUserInterface
+     *
+     * @return string
      */
     public function getPassword(): string
     {
@@ -201,6 +205,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return void
      */
     public function eraseCredentials(): void
     {

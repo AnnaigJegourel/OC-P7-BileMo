@@ -24,7 +24,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * User object constructor
      *
-     * @param ManagerRegistry $registry Parameter
+     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -36,8 +36,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Save the User object to the database
      *
-     * @param User $entity Parameter
-     * @param boolean $flush Parameter
+     * @param User $entity
+     * @param boolean $flush
      *
      * @return void
      */
@@ -55,8 +55,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Delete the User object from the database
      *
-     * @param User $entity Parameter
-     * @param boolean $flush Parameter
+     * @param User $entity
+     * @param boolean $flush
+     *
+     * @return void
      */
     public function remove(User $entity, bool $flush=false): void
     {
@@ -72,9 +74,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Fetch a paginated users list of a customer, following id
      *
-     * @param integer|null $idCustomer Parameter
-     * @param integer $page Parameter
-     * @param integer $limit Parameter
+     * @param integer|null $idCustomer
+     * @param integer $page
+     * @param integer $limit
      *
      * @return mixed
      */
@@ -95,8 +97,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time
      *
-     * @param PasswordAuthenticatedUserInterface $user Parameter
-     * @param string $newHashedPassword Parameter
+     * @param PasswordAuthenticatedUserInterface $user
+     * @param string $newHashedPassword
+     *
+     * @return void
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {

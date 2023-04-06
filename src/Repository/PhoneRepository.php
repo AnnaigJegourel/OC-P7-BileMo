@@ -21,7 +21,7 @@ class PhoneRepository extends ServiceEntityRepository
     /**
      * Phone object constructor
      *
-     * @param ManagerRegistry $registry Parameter
+     * @param ManagerRegistry $registry
      */
     public function __construct(ManagerRegistry $registry)
     {
@@ -33,8 +33,8 @@ class PhoneRepository extends ServiceEntityRepository
     /**
      * Save the Phone object to the database
      *
-     * @param Phone $entity Parameter
-     * @param boolean $flush Parameter
+     * @param Phone $entity
+     * @param boolean $flush
      *
      * @return void
      */
@@ -52,8 +52,8 @@ class PhoneRepository extends ServiceEntityRepository
     /**
      * Delete the Phone object from the database
      *
-     * @param Phone $entity Parameter
-     * @param boolean $flush Parameter
+     * @param Phone $entity
+     * @param boolean $flush
      *
      * @return void
      */
@@ -71,8 +71,8 @@ class PhoneRepository extends ServiceEntityRepository
     /**
      * Fetch all Phone objects & paginate them
      *
-     * @param integer $page Parameter
-     * @param integer $limit Parameter
+     * @param integer $page
+     * @param integer $limit
      *
      * @return mixed
      */
