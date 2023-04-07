@@ -25,21 +25,6 @@ use OpenApi\Annotations as OA;
 
 class UserController extends AbstractController
 {
-    /*
-     * READ All Users.
-     *
-     * #[Route('/api/users', name: 'app_users', methods: ['GET'])]
-     * public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
-     * {
-     *     $usersList = $userRepository->findAll();
-     *     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
-     *
-     *     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
-     *
-     * }
-     */
-
-
     /**
      * Retourne les détails de l'utilisateur dont vous saisissez l'identifiant
      *
@@ -67,35 +52,6 @@ class UserController extends AbstractController
         return new JsonResponse($jsonUser, Response::HTTP_OK, [], true);
 
     }
-
-
-    /*
-     * READ All Customers.
-     * Don't forget to add context if uncommenting (for JMSSerializer)
-     * #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
-     * public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
-     * {
-     *     $customersList = $customerRepository->findAll();
-     *     $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
-     *
-     *     return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
-     *
-     * }
-     */
-
-
-    /*
-     * READ One Customer.
-     * Don't forget to add context if uncommenting (for JMSSerializer)
-     * #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
-     * public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
-     * {
-     *     $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
-     *
-     *     return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
-     *
-     * }
-     */
 
 
     /**
@@ -325,15 +281,15 @@ class UserController extends AbstractController
         $currentUser->setEmail($content['email']);
 
         // On màj le rôle, le prénom & le nom s'ils sont saisis.
-        if (isset($content['roles']) === true && $content['roles'] !==null) {
+        if (isset($content['roles']) === true && $content['roles'] !== null) {
             $currentUser->setRoles($content['roles']);
         }
 
-        if (isset($content['firstName']) === true && $content['firstName'] !==null) {
+        if (isset($content['firstName']) === true && $content['firstName'] !== null) {
             $currentUser->setFirstName($content['firstName']);
         }
 
-        if (isset($content['lastName']) === true && $content['lastName'] !==null) {
+        if (isset($content['lastName']) === true && $content['lastName'] !== null) {
             $currentUser->setLastName($content['lastName']);
         }
 
@@ -343,6 +299,50 @@ class UserController extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
     }
+
+
+    /*
+     * READ All Users.
+     *
+     * #[Route('/api/users', name: 'app_users', methods: ['GET'])]
+     * public function getAllUsers(UserRepository $userRepository, SerializerInterface $serializer): JsonResponse
+     * {
+     *     $usersList = $userRepository->findAll();
+     *     $jsonUsersList = $serializer->serialize($usersList, 'json', ['groups' => 'getUsers']);
+     *
+     *     return new JsonResponse($jsonUsersList, Response::HTTP_OK, [], true);
+     *
+     * }
+     */
+
+
+    /*
+     * READ All Customers.
+     * Don't forget to add context if uncommenting (for JMSSerializer)
+     * #[Route('/api/customers', name: 'app_customers', methods: ['GET'])]
+     * public function getAllCustomers(CustomerRepository $customerRepository, SerializerInterface $serializer): JsonResponse
+     * {
+     *     $customersList = $customerRepository->findAll();
+     *     $jsonCustomersList = $serializer->serialize($customersList, 'json', ['groups' => 'getUsers']);
+     *
+     *     return new JsonResponse($jsonCustomersList, Response::HTTP_OK, [], true);
+     *
+     * }
+     */
+
+
+    /*
+     * READ One Customer.
+     * Don't forget to add context if uncommenting (for JMSSerializer)
+     * #[Route('/api/customers/{id}', name: 'app_customer_details', methods: ['GET'])]
+     * public function getCustomerDetails(Customer $customer, SerializerInterface $serializer): JsonResponse
+     * {
+     *     $jsonCustomer = $serializer->serialize($customer, 'json', ['groups' => 'getUsers']);
+     *
+     *     return new JsonResponse($jsonCustomer, Response::HTTP_OK, [], true);
+     *
+     * }
+     */
 
 
 }
