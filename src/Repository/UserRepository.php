@@ -89,7 +89,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit);
 
-        return $qb->getQuery()->getResult();
+        $query = $qb->getQuery();
+        $query->setFetchMode(User::class, "customer", \Doctrine\ORM\Mapping\ClassMetadata::FETCH_EAGER);
+
+        return $query->getResult();
 
     }
 

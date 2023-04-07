@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class PhoneController extends AbstractController
 {
@@ -51,13 +53,34 @@ class PhoneController extends AbstractController
      * @return JsonResponse
      */
     #[Route('/api/phones', name: 'app_phones', methods: ['GET'])]
-    public function getAllPhones(PhoneRepository $phoneRepository, SerializerInterface $serializer, Request $request): JsonResponse
+    public function getAllPhones(PhoneRepository $phoneRepository, SerializerInterface $serializer, Request $request, TagAwareCacheInterface $cachePool): JsonResponse
     {
+        /**
+         * @var int
+         */
         $page = $request->get('page', 1);
+
+        /**
+         * @var int
+         */
         $limit = $request->get('limit', 3);
 
-        // @phpstan-ignore-next-line
-        $phoneList = $phoneRepository->findAllWithPagination($page, $limit);
+        /**
+         * @var string
+         */
+        $idCache = "getAllPhones-".$page."-".$limit;
+
+        $phoneList = $cachePool->get(
+            $idCache,
+            function (ItemInterface $item) use ($phoneRepository, $page, $limit) {
+                echo ("Cet élément n'est pas encore en cache.");
+                $item->tag("phonesCache");
+                $item->expiresAfter(60);
+
+                return $phoneRepository->findAllWithPagination($page, $limit);
+            }
+        );
+
         $jsonPhoneList = $serializer->serialize($phoneList, 'json');
 
         return new JsonResponse($jsonPhoneList, Response::HTTP_OK, [], true);
