@@ -162,10 +162,12 @@ class UserController extends AbstractController
      * @return JsonResponse
      */
     #[Route('/api/users/{id}', name: 'app_user_delete', methods: ['DELETE'])]
-    public function deleteUser(User $user, EntityManagerInterface $emi): JsonResponse
+    public function deleteUser(User $user, EntityManagerInterface $emi, TagAwareCacheInterface $cache): JsonResponse
     {
         $emi->remove($user);
         $emi->flush();
+
+        $cache->invalidateTags(["usersCache"]);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
@@ -226,7 +228,7 @@ class UserController extends AbstractController
      * @return JsonResponse
      */
     #[Route('/api/users', name: 'app_user_create', methods: ['POST'])]
-    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
+    public function createUser(CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UrlGeneratorInterface $urlGenerator, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse
     {
         /**
          * @var User
@@ -256,6 +258,8 @@ class UserController extends AbstractController
 
         $emi->persist($user);
         $emi->flush();
+
+        $cache->invalidateTags(["usersCache"]);
 
         $context = SerializationContext::create()->setGroups(['getUsers']);
         $jsonUser = $serializer->serialize($user, 'json', $context);
@@ -291,7 +295,7 @@ class UserController extends AbstractController
      * @return JsonResponse
      */
     #[Route('/api/users/{id}', name: 'app_user_update', methods: ['PUT'])]
-    public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator): JsonResponse
+    public function updateUser(User $currentUser, CustomerRepository $customerRepository, Request $request, SerializerInterface $serializer, EntityManagerInterface $emi, UserPasswordHasherInterface $passwordHasher, ValidatorInterface $validator, TagAwareCacheInterface $cache): JsonResponse
     {
         /**
          * @var User
@@ -335,6 +339,8 @@ class UserController extends AbstractController
 
         $emi->persist($currentUser);
         $emi->flush();
+
+        $cache->invalidateTags(["usersCache"]);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
 
