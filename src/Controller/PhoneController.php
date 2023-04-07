@@ -70,14 +70,17 @@ class PhoneController extends AbstractController
          */
         $idCache = "getAllPhones-".$page."-".$limit;
 
-        $phoneList = $cachePool->get($idCache, function (ItemInterface $item) use ($phoneRepository, $page, $limit) {
-            echo ("Cet élément n'est pas encore en cache.");
-            $item->tag("phonesCache");
-            $item->expiresAfter(60);
+        $phoneList = $cachePool->get(
+            $idCache, 
+            function (ItemInterface $item) use ($phoneRepository, $page, $limit)
+            {
+                echo ("Cet élément n'est pas encore en cache.");
+                $item->tag("phonesCache");
+                $item->expiresAfter(60);
 
-            return $phoneRepository->findAllWithPagination($page, $limit);
-
-        });
+                return $phoneRepository->findAllWithPagination($page, $limit);
+            }
+        );
 
         $jsonPhoneList = $serializer->serialize($phoneList, 'json');
 
