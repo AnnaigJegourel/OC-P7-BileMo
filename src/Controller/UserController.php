@@ -21,7 +21,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class UserController extends AbstractController
 {
@@ -87,15 +88,55 @@ class UserController extends AbstractController
      * @return JsonResponse
      */
     #[Route('/api/customers/{id}/users', name: 'app_customer_users', methods: ['GET'])]
-    public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer, UserRepository $userRepository, Request $request): JsonResponse
+    public function getCustomerUsersList(Customer $customer, SerializerInterface $serializer, UserRepository $userRepository, Request $request, TagAwareCacheInterface $cache): JsonResponse
     {
         $idCustomer = $customer->getId();
+
+        /** @var int */
         $page = $request->get('page', 1);
+
+        /**
+         * @var int
+        */
         $limit = $request->get('limit', 3);
         $context = SerializationContext::create()->setGroups(['getUsers']);
 
-        // @phpstan-ignore-next-line
-        $customerUsersList = $userRepository->findByCustomerPagin($idCustomer, $page, $limit);
+        $idCache = "getAllCustomerUsers-".$page."-".$limit;
+
+        /*
+         * Sans cache
+         * $customerUsersList = $userRepository->findByCustomerPagin($idCustomer, $page, $limit);
+         *$jsonCustUsersList = $serializer->serialize($customerUsersList, 'json', $context);
+         */
+
+        /*
+         * Cache V1
+         * $jsonCustUsersList = $cache->get(
+         *  $idCache,
+         *   function (ItemInterface $item) use ($userRepository, $idCustomer, $page, $limit, $serializer)
+         *   {
+         *       echo ("Cet élément n'est pas encore en cache.");
+         *       $item->tag("usersCache");
+         *       $customerUsersList = $userRepository->findByCustomerPagin($idCustomer, $page, $limit);
+         *       $context = SerializationContext::create()->setGroups(['getUsers']);
+
+         *       return $serializer->serialize($customerUsersList, 'json', $context);
+         *   }
+         * );
+         */
+
+        $customerUsersList = $cache->get(
+            $idCache, 
+            function (ItemInterface $item) use ($userRepository,$idCustomer,  $page, $limit)
+            {
+                echo ("Cet élément n'est pas encore en cache.");
+                $item->tag("usersCache");
+                $item->expiresAfter(60);
+
+                return $userRepository->findByCustomerPagin($idCustomer, $page, $limit);
+            }
+        );
+
         $jsonCustUsersList = $serializer->serialize($customerUsersList, 'json', $context);
 
         return new JsonResponse($jsonCustUsersList, Response::HTTP_OK, [], true);
