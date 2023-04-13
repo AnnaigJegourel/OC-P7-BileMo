@@ -128,7 +128,7 @@ class UserController extends AbstractController
         $customerUsersList = $cache->get(
             $idCache,
             function (ItemInterface $item) use ($userRepository, $idCustomer, $page, $limit) {
-                echo ("Cet élément n'est pas encore en cache.");
+                // echo ("Cet élément n'est pas encore en cache.");
                 $item->tag("usersCache");
                 $item->expiresAfter(60);
 
