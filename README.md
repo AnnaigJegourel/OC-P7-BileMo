@@ -28,7 +28,7 @@ Symfony 6.2
 
 You can load the fixtures as initial data, running "php bin/console doctrine:fixtures:load"
 
-🔗 Once your project is installed, you can find the api documentation following this link:
+🔗 Once your project is installed and your servers are launched, you can find the api documentation following this link:
 <https://127.0.0.1:8000/api/doc/>
 
 ## Contexte 🇫🇷
