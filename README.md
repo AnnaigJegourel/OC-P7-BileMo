@@ -24,8 +24,11 @@ Symfony 6.2
     6. Launch a terminal at the root of the project & run the command "composer intall"
     7. Launch the Symfony server running "symfony server:start"
 
+
+
 You can load the fixtures as initial data, running "php bin/console doctrine:fixtures:load"
-Once your project is installed, you can find the api documentation following this link:
+
+🔗 Once your project is installed, you can find the api documentation following this link:
 <https://127.0.0.1:8000/api/doc/>
 
 ## Contexte 🇫🇷
