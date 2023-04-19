@@ -2,6 +2,7 @@
 
 Training program "Back-end Developer: PHP/Symfony" (OpenClassrooms)  
 Project 7: API built with Symfony, for a B2B mobile phone company (study project)  
+✅ Validated on April 17, 2023
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/d18cc7ef7d1c0507c4ba/maintainability)](https://codeclimate.com/github/AnnaigJegourel/OC-P7-BileMo/maintainability)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b340d28e14e9499c9b9c65e065c10b6f)](https://app.codacy.com/gh/AnnaigJegourel/OC-P7-BileMo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
